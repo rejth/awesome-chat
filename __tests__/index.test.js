@@ -1,7 +1,7 @@
 import fastify from 'fastify';
 import { test, expect } from '@jest/globals';
 
-import init from '../server/plugin.js';
+import init from '../server/plugin';
 
 test('get /', async () => {
   const app = fastify({ logger: { prettyPrint: true } });

@@ -1,7 +1,7 @@
 {
   "name": "dom-react-redux-project-lvl4",
   "version": "0.0.1",
-  "description": "",
+  "description": "This is React Chat app repository",
   "main": "server/plugin.js",
   "type": "module",
   "scripts": {
@@ -9,7 +9,14 @@
     "prebuild": "rm -rf dist",
     "build": "webpack",
     "start": "fastify start server/plugin.js -l info -P -a 0.0.0.0",
-    "start-local": "fastify start server/plugin.js -l info -P"
+    "start-backend": "fastify start server/plugin.js -l info -P",
+    "start-frontend": "npx webpack serve"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "jest": {
     "transform": {}
@@ -17,6 +24,18 @@
   "author": "Ilya Kirsanov",
   "license": "ISC",
   "homepage": "",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "bootstrap": "^5.1.3",
     "core-js": "^3.21.1",
@@ -37,6 +56,9 @@
     "popper.js": "^1.16.1",
     "pug": "^3.0.2",
     "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^6.2.2",
+    "react-router-dom": "^6.2.2",
     "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
@@ -59,11 +81,11 @@
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
     "mini-css-extract-plugin": "^2.5.3",
-    "sass": "^1.47.0",
     "nodemon": "^2.0.15",
     "npm-check-updates": "^12.4.0",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.4.1",
+    "sass": "^1.47.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.69.1",

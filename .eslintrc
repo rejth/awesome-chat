@@ -1,0 +1,78 @@
+{
+  "root": true,
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true
+  },
+
+  "plugins": [
+    "react", // @eslint-plugin-react
+    "react-hooks", // @eslint-plugin-react-hooks
+    "import", // @eslint-plugin-import
+    "jsx-a11y" // @eslint-plugin-jsx-a11y
+  ], // Turn on the plugins and peer plugins
+
+  "extends": [
+    "airbnb", // Use the recommended rules from @eslint-config-airbnb
+    "plugin:react/recommended" // Extends prevouos rules by rules from @eslint-plugin-react
+  ],
+
+  "parser": "@babel/eslint-parser", // Specifies the ESLint parser
+  "parserOptions": {
+    "sourceType": "module", // Allows for the use of imports
+    "ecmaVersion": "latest", // Allows for the parsing of modern ECMAScript features
+    "ecmaFeatures": {
+      "jsx": true, // Allows for the parsing of JSX
+      "modules": true
+    }
+  },
+
+  "rules": {
+    "no-console": "off",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "linebreak-style": ["error", "unix"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-pascal-case": ["error"],
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "noSortAlphabetically": true,
+        "ignoreCase": true,
+        "callbacksLast": true,
+        "shorthandLast": false,
+        "reservedFirst": ["key"]
+      }
+    ],
+    "react/jsx-max-props-per-line": [
+      "error",
+      {
+        "maximum": 1,
+        "when": "always"
+      }
+    ]
+  },
+
+  "ignorePatterns": ["./node_modules/**", "./src/**/*.cjs"],
+
+  "settings":  {
+    "import/resolver": ["node", "webpack"],
+    "react":  {
+      "version":  "detect"  // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
+  }
+}
