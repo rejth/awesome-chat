@@ -70,7 +70,7 @@
   "ignorePatterns": ["./node_modules/**", "./src/**/*.cjs"],
 
   "settings":  {
-    "import/resolver": ["node", "webpack"],
+    // "import/resolver": ["node", "webpack"],
     "react":  {
       "version":  "detect"  // Tells eslint-plugin-react to automatically detect the version of React to use
     }
