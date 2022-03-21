@@ -5,6 +5,7 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import App from './components/App';
+import AppProviders from './components/App/AppProviders';
 
 import '../assets/application.scss';
 import '../assets/index.scss';
@@ -15,7 +16,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppProviders>
+      <App />
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById('chat'),
 );
