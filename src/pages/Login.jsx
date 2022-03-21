@@ -6,16 +6,19 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Form, Button, Container } from 'react-bootstrap';
 
-import ChatService from '../../services/chatService';
+import { useAuth } from '../components/AuthProvider/AuthProvider';
+import ChatService from '../services/chatService';
 
 function Login() {
-  const service = new ChatService();
   const history = useHistory();
+  const auth = useAuth();
+
+  const service = new ChatService();
 
   const mutation = useMutation(service.loginUser, {
-    onSuccess: (response) => {
-      localStorage.setItem('token', response.token);
-      history.push('/');
+    onSuccess: (data) => {
+      auth.login(data);
+      history.push('/chat');
       toast.success('Login successful!', { duration: 5000, icon: '👌' });
     },
     onError: (error) => {
@@ -98,7 +101,7 @@ function Login() {
           variant="primary"
           type="submit"
         >
-          Login
+          Log in
         </Button>
       </Form>
     </Container>

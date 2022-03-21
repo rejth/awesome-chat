@@ -1,31 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
-import Login from '../Login';
-import Home from '../../pages/Home';
+import LoginPage from '../../pages/Login';
+import HomePage from '../../pages/Home';
+import ChatPage from '../../pages/Chat';
+
+import AccessControl from '../AccessControl';
+import Navbar from '../Navbar';
 import NotFound from '../NotFound';
 
 function App() {
   return (
     <Container className="p-5">
-      <Router>
-        <Switch>
-          <Route
-            path="/login"
-            component={Login}
-          />
-          <Route
-            exact
-            path="/"
-            component={Home}
-          />
-          <Route
-            path="*"
-            component={NotFound}
-          />
-        </Switch>
-      </Router>
+      <Navbar />
+      <Switch>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+
+        <Route path="/home">
+          <HomePage />
+        </Route>
+
+        <Route path="/chat">
+          <AccessControl>
+            <ChatPage />
+          </AccessControl>
+        </Route>
+
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
     </Container>
   );
 }

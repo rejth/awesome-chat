@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+
+import AuthProvider from '../AuthProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,7 +20,11 @@ function AppProviders({ children }) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Toaster position="bottom-right" />
-      <BrowserRouter>{children}</BrowserRouter>
+      <AuthProvider>
+        <Router>
+          {children}
+        </Router>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
@@ -26,4 +32,5 @@ function AppProviders({ children }) {
 AppProviders.propTypes = {
   children: PropTypes.element.isRequired,
 };
+
 export default AppProviders;
