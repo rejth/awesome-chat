@@ -3,10 +3,11 @@ import axios from 'axios';
 export default class ChatService {
   _baseUrl = 'http://127.0.0.1:3000/api/v1';
 
-  fetchData = async (url, method, data) => {
+  fetchData = async (url, method, data, authHeader) => {
     const response = await axios({
       method,
       url: `${this._baseUrl}${url}`,
+      headers: authHeader,
       data,
     });
 
@@ -21,6 +22,15 @@ export default class ChatService {
     try {
       const user = await this.fetchData('/login', 'post', userData);
       return user;
+    } catch (error) {
+      return Promise.reject(error.response?.data);
+    }
+  };
+
+  getChannels = async (authHeader) => {
+    try {
+      const channels = await this.fetchData('/data', 'get', {}, authHeader);
+      return channels;
     } catch (error) {
       return Promise.reject(error.response?.data);
     }

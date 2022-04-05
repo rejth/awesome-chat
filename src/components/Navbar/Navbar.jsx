@@ -15,7 +15,15 @@ function AuthButton() {
 
   return (
     auth.user
-      ? <Button onClick={auth.logout}>Log out</Button>
+      ? (
+        <Button
+          as={Link}
+          to="/login"
+          onClick={auth.logout}
+        >
+          Log out
+        </Button>
+      )
       : (
         <Button
           as={Link}

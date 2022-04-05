@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider as StoreProvider } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import AuthProvider from '../AuthProvider';
+import store from '../../slices';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,11 +22,13 @@ function AppProviders({ children }) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Toaster position="bottom-right" />
-      <AuthProvider>
-        <Router>
-          {children}
-        </Router>
-      </AuthProvider>
+      <StoreProvider store={store}>
+        <AuthProvider>
+          <Router>
+            {children}
+          </Router>
+        </AuthProvider>
+      </StoreProvider>
     </QueryClientProvider>
   );
 }
