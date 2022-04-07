@@ -18,21 +18,17 @@ function App() {
         <Route path="/login">
           <LoginPage />
         </Route>
-
         <Route path="/home">
           <HomePage />
         </Route>
-
         <Route path="/chat">
           <AccessControl>
             <ChatPage />
           </AccessControl>
         </Route>
-
         <Route exact path="/">
           <HomePage />
         </Route>
-
         <Route path="*">
           <NotFound />
         </Route>

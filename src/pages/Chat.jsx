@@ -1,4 +1,6 @@
 import React from 'react';
+import { io } from 'socket.io-client';
+import { useFormik } from 'formik';
 import {
   Container,
   Form,
@@ -11,8 +13,37 @@ import {
 
 import useChatData from '../hooks/useChatData';
 
+const socket = io.connect('http://127.0.0.1:3000');
+
 function ChatPage() {
   const { isLoading, isError, data } = useChatData();
+  const [messages, setMessages] = React.useState([
+    {
+      id: 1,
+      userId: 1,
+      message: 'Здарова, пацаны, как дела?',
+    },
+    {
+      id: 2,
+      userId: 2,
+      message: 'Вы что не помните, меня вчера убили, мать вашу?',
+    },
+  ]);
+
+  React.useEffect(() => {
+    socket.on('newMessage', (message) => {
+      setMessages((allMessages) => [...allMessages, message]);
+    });
+  }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      message: '',
+    },
+    onSubmit: (newMessage) => {
+      socket.emit('newMessage', newMessage);
+    },
+  });
 
   if (isLoading) return <span>Loading...</span>;
   if (isError) return <span>Error</span>;
@@ -44,15 +75,23 @@ function ChatPage() {
               <Tab.Content>
                 {data.channels.map(({ id }) => (
                   <Tab.Pane key={id} eventKey={`#link${id}`}>
-                    Messages
+                    {messages.map(({ message, id: mid }) => (
+                      <div key={mid}>{ message }</div>
+                    ))}
                   </Tab.Pane>
                 ))}
 
-                <Form>
+                <Form onSubmit={formik.handleSubmit}>
                   <Form.Group className="mb-3 mt-5">
-                    <Form.Control type="text" placeholder="Type a message" />
+                    <Form.Control
+                      type="text"
+                      placeholder="Type a message"
+                      name="message"
+                      value={formik.values.message}
+                      onChange={formik.handleChange}
+                    />
                   </Form.Group>
-                  <Button variant="primary">
+                  <Button variant="primary" type="submit">
                     Send
                   </Button>
                 </Form>

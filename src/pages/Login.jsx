@@ -56,55 +56,57 @@ function Login() {
   });
 
   return (
-    <Container className="p-5 mb-4 bg-light rounded-3">
-      <h1 className="header pb-5">Sing in</h1>
-      <Form onSubmit={formik.handleSubmit}>
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicEmail"
-        >
-          <Form.Label>User name</Form.Label>
-          <Form.Control
-            required
-            name="username"
-            type="text"
-            placeholder="Enter your name"
-            value={formik.values.username}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-          {formik.touched.username && formik.errors.username ? (
-            <div>{formik.errors.username}</div>
-          ) : null}
-        </Form.Group>
+    <section className="login-page">
+      <Container className="p-5 mb-4 bg-light rounded-3">
+        <h1 className="header pb-5">Sing in</h1>
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+          >
+            <Form.Label>User name</Form.Label>
+            <Form.Control
+              required
+              name="username"
+              type="text"
+              placeholder="Enter your name"
+              value={formik.values.username}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.username && formik.errors.username ? (
+              <div>{formik.errors.username}</div>
+            ) : null}
+          </Form.Group>
 
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicPassword"
-        >
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            required
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formik.values.password}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-          {formik.touched.password && formik.errors.password ? (
-            <div>{formik.errors.password}</div>
-          ) : null}
-        </Form.Group>
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicPassword"
+          >
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              required
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formik.values.password}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div>{formik.errors.password}</div>
+            ) : null}
+          </Form.Group>
 
-        <Button
-          variant="primary"
-          type="submit"
-        >
-          Log in
-        </Button>
-      </Form>
-    </Container>
+          <Button
+            variant="primary"
+            type="submit"
+          >
+            Log in
+          </Button>
+        </Form>
+      </Container>
+    </section>
   );
 }
 
