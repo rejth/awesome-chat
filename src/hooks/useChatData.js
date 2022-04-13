@@ -1,9 +1,8 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useQuery } from 'react-query';
 
 import ChatService from '../services/chatService.js';
-import { addData } from '../slices/chatSlice.js';
+import { setData } from '../slices/chatSlice.js';
 
 const service = new ChatService();
 
@@ -18,24 +17,18 @@ function getAuthHeader() {
 }
 
 function useChatData() {
-  const authHeader = getAuthHeader();
   const dispatch = useDispatch();
+  const authHeader = getAuthHeader();
 
   const {
     isLoading,
     isError,
     data,
-  } = useQuery('channels', () => service.getChannels(authHeader));
+  } = useQuery('chatData', () => service.getChatData(authHeader));
 
-  React.useEffect(() => {
-    if (data) dispatch(addData(data));
-  }, [data, dispatch]);
+  if (data) dispatch(setData(data));
 
-  return {
-    isLoading,
-    isError,
-    data,
-  };
+  return { isLoading, isError };
 }
 
 export default useChatData;

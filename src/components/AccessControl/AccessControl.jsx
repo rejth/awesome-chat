@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, useLocation } from 'react-router-dom';
 
-import { useAuth } from '../AuthProvider/AuthProvider';
+import { useAuth } from '../../hooks/useContext';
 
 function AccessControl({ children }) {
   const auth = useAuth();

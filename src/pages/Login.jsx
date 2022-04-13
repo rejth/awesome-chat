@@ -6,14 +6,12 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Form, Button, Container } from 'react-bootstrap';
 
-import { useAuth } from '../components/AuthProvider/AuthProvider';
-import ChatService from '../services/chatService';
+import { useAuth, useChatService } from '../hooks/useContext';
 
 function Login() {
-  const history = useHistory();
   const auth = useAuth();
-
-  const service = new ChatService();
+  const { service } = useChatService();
+  const history = useHistory();
 
   const mutation = useMutation(service.loginUser, {
     onSuccess: (data) => {

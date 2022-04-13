@@ -1,5 +1,3 @@
-// @ts-check
-
 import axios from 'axios';
 
 export default class ChatService {
@@ -28,7 +26,7 @@ export default class ChatService {
     }
   };
 
-  getChannels = async (authHeader) => {
+  getChatData = async (authHeader) => {
     try {
       return await this.fetchData('/data', 'get', {}, authHeader);
     } catch (error) {

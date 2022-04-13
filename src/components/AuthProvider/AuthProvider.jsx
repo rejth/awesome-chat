@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const AuthContext = React.createContext(null);
-export const useAuth = () => React.useContext(AuthContext);
+import { AuthContext } from '../../contexts';
 
 function AuthProvider({ children }) {
   const credentials = JSON.parse(localStorage.getItem('credentials'));

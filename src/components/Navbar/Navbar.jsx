@@ -7,7 +7,7 @@ import {
   Button,
 } from 'react-bootstrap';
 
-import { useAuth } from '../AuthProvider/AuthProvider';
+import { useAuth } from '../../hooks/useContext';
 
 function AuthButton() {
   const auth = useAuth();
@@ -50,7 +50,6 @@ function NavBar() {
         >
           React Chat
         </Navbar.Brand>
-
         <Nav className="mr-auto">
           <Nav.Link
             as={Link}
@@ -58,7 +57,6 @@ function NavBar() {
           >
             Home
           </Nav.Link>
-
           <Nav.Link
             as={Link}
             to="/chat"

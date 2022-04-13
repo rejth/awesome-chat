@@ -3,6 +3,6 @@ import chatReducer from './chatSlice.js';
 
 export default configureStore({
   reducer: {
-    chatData: chatReducer,
+    chatReducer,
   },
 });
