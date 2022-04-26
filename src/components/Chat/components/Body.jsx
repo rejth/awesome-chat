@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useFormik } from 'formik';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import {
   Form,
   Tab,
@@ -8,39 +9,43 @@ import {
   Button,
 } from 'react-bootstrap';
 
-import { useChatService } from '../../../hooks/useContext';
+import { useChatService, useAuth } from '../../../hooks/useContext';
+import { addMessage, removeAllMessage } from '../../../slices/chatSlice';
 
 function ChatBody() {
+  const dispatch = useDispatch();
+  const location = useLocation();
   const data = useSelector((state) => state.chatReducer.data);
-  const { socket } = useChatService();
 
-  const [messages, setMessages] = React.useState([
-    {
-      id: 1,
-      userId: 1,
-      message: 'Здарова, пацаны, как дела?',
-    },
-    {
-      id: 2,
-      userId: 2,
-      message: 'Вы что не помните, меня вчера убили, мать вашу?',
-    },
-  ]);
+  const { socket } = useChatService();
+  const { user } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setFocus,
+  } = useForm();
 
   React.useEffect(() => {
-    socket.on('newMessage', (message) => {
-      setMessages((allMessages) => [...allMessages, message]);
-    });
-  }, [socket]);
+    setFocus('message');
+  }, [setFocus]);
 
-  const formik = useFormik({
-    initialValues: {
-      message: '',
-    },
-    onSubmit: (newMessage) => {
-      socket.emit('newMessage', newMessage);
-    },
-  });
+  React.useEffect(() => {
+    socket.on('newMessage', (newMessage) => {
+      if (!newMessage.message) return;
+      dispatch(addMessage(newMessage));
+    });
+  }, [socket, dispatch]);
+
+  const onSubmit = (newMessage) => {
+    if (!newMessage.message) return;
+    socket.emit('newMessage', {
+      ...newMessage,
+      userId: user?.username,
+      channelId: +location.hash.substring(1),
+    });
+    reset({ message: '' });
+  };
 
   return (
     <Col sm={8}>
@@ -48,29 +53,44 @@ function ChatBody() {
         {data.channels.map(({ id }) => (
           <Tab.Pane
             key={id}
-            eventKey={`#link${id}`}
+            active={id === +location.hash.substring(1)}
+            eventKey={`#${id}`}
           >
-            {messages.map(({ message, id: mid }) => (
-              <div key={mid}>{ message }</div>
-            ))}
+            {data.messages
+              .filter((item) => item.channelId === id)
+              .map(({ message, id: mid }) => (
+                <div key={mid}>
+                  <strong>{`${user.username}: `}</strong>
+                  <span>{message}</span>
+                </div>
+              ))}
           </Tab.Pane>
         ))}
 
-        <Form onSubmit={formik.handleSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3 mt-5">
             <Form.Control
+              autoFocus
               type="text"
               name="message"
               placeholder="Type a message"
-              value={formik.values.message}
-              onChange={formik.handleChange}
+              {...register('message')}
             />
           </Form.Group>
           <Button
             variant="primary"
             type="submit"
+            onClick={handleSubmit(onSubmit)}
           >
             Send message
+          </Button>
+          {' '}
+          <Button
+            variant="warning"
+            type="submit"
+            onClick={() => dispatch(removeAllMessage())}
+          >
+            Delete all messages
           </Button>
         </Form>
       </Tab.Content>

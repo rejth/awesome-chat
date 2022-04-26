@@ -28,7 +28,7 @@ function useChatData() {
 
   if (data) dispatch(setData(data));
 
-  return { isLoading, isError };
+  return { data, isLoading, isError };
 }
 
 export default useChatData;

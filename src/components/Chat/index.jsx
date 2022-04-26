@@ -6,7 +6,7 @@ import ChatSidebar from './components/Sidebar';
 import useChatData from '../../hooks/useChatData';
 
 function Chat() {
-  const { isLoading, isError } = useChatData();
+  const { data, isLoading, isError } = useChatData();
 
   if (isLoading) return <span>Loading...</span>;
   if (isError) return <span>Error</span>;
@@ -14,7 +14,7 @@ function Chat() {
   return (
     <Tab.Container
       id="chat-channels-wrapper"
-      defaultActiveKey="#link1"
+      defaultActiveKey={`#${data?.currentChannelId}`}
     >
       <Row>
         <ChatSidebar />

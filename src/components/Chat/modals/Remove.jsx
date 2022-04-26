@@ -1,13 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+
+import { useChatService } from '../../../hooks/useContext';
 
 function RemoveModal({
   channelId,
   isShow,
-  socket,
   handleClose,
 }) {
+  const { socket } = useChatService();
   const onSubmit = () => {
     socket.emit('removeChannel', { id: channelId });
     handleClose();
@@ -46,7 +48,6 @@ function RemoveModal({
 RemoveModal.propTypes = {
   channelId: PropTypes.number.isRequired,
   isShow: PropTypes.bool.isRequired,
-  socket: PropTypes.any.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 

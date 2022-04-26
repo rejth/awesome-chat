@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Col,
@@ -15,35 +16,39 @@ import { useChatService } from '../../../hooks/useContext';
 import { addChannel, removeChannel, renameChannel } from '../../../slices/chatSlice';
 
 function ChatSidebar() {
-  const dispatch = useDispatch();
-  const channels = useSelector((state) => state.chatReducer.data.channels);
-  const { socket } = useChatService();
+  const location = useLocation();
+  const history = useHistory();
 
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.chatReducer.data);
+
+  const { socket } = useChatService();
   const [modal, setModal] = React.useState({ type: '', channelId: null });
+  const Modal = showModal(modal.type);
 
   React.useEffect(() => {
     socket.on('newChannel', (newChannel) => {
       dispatch(addChannel(newChannel));
+      history.push(`/chat#${newChannel?.id}`);
     });
     socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel(id));
+      history.push('/chat#1');
     });
     socket.on('renameChannel', (channel) => {
       dispatch(renameChannel(channel));
+      history.push(`/chat#${channel?.id}`);
     });
-  }, [dispatch, socket]);
-
-  const Modal = showModal(modal.type);
+  }, [socket, dispatch, history]);
 
   return (
     <>
       {modal.type && (
-      <Modal
-        channelId={modal.channelId}
-        socket={socket}
-        isShow={!!modal.type}
-        handleClose={() => setModal({ type: '', channelId: null })}
-      />
+        <Modal
+          channelId={modal.channelId}
+          isShow={!!modal.type}
+          handleClose={() => setModal({ type: '', channelId: null })}
+        />
       )}
       <Col sm={4}>
         <div className="d-flex justify-content-between align-items-start">
@@ -51,21 +56,19 @@ function ChatSidebar() {
           <button
             type="button"
             className="btn btn-outline-success btn-sm float-right"
-            onClick={() => {}}
+            onClick={() => setModal({ type: 'adding', channelId: null })}
           >
-            <FontAwesomeIcon
-              icon={faPlus}
-              onClick={() => setModal({ type: 'adding', channelId: null })}
-            />
+            <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
 
         <ListGroup>
-          {channels.map(({ id, name }) => (
+          {data.channels.map(({ id, name, removable }) => (
             <ListGroup.Item
               key={id}
               action
-              href={`#link${id}`}
+              active={id === +location.hash.substring(1)}
+              href={`#${id}`}
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
@@ -82,13 +85,17 @@ function ChatSidebar() {
                   >
                     Rename
                   </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item
-                    eventKey="2"
-                    onClick={() => setModal({ type: 'removing', channelId: id })}
-                  >
-                    Remove
-                  </Dropdown.Item>
+                  {removable && (
+                    <>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        eventKey="2"
+                        onClick={() => setModal({ type: 'removing', channelId: id })}
+                      >
+                        Remove
+                      </Dropdown.Item>
+                    </>
+                  )}
                 </SplitButton>
               </div>
             </ListGroup.Item>

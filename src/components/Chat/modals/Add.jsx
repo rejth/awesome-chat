@@ -1,18 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
+import PropTypes from 'prop-types';
 
-function AddModal({ isShow, socket, handleClose }) {
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-    },
-    onSubmit: (name) => {
-      socket.emit('newChannel', name);
-      handleClose();
-    },
-  });
+import getValidationSchema from './helpers/validation';
+import { useChatService } from '../../../hooks/useContext';
+
+function AddModal({ isShow, handleClose }) {
+  const channels = useSelector((state) => state.chatReducer.data.channels);
+  const { socket } = useChatService();
+
+  const {
+    register,
+    handleSubmit,
+    setFocus,
+    formState: { errors },
+  } = useForm({ mode: 'onBlur' });
+
+  React.useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
+
+  const onSubmit = (data) => {
+    socket.emit('newChannel', data);
+    handleClose();
+  };
 
   return (
     <Modal show={isShow} onHide={handleClose}>
@@ -20,7 +33,7 @@ function AddModal({ isShow, socket, handleClose }) {
         <Modal.Title>Add a channel</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={formik.handleSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>Channel name</Form.Label>
             <Form.Control
@@ -28,9 +41,9 @@ function AddModal({ isShow, socket, handleClose }) {
               type="text"
               name="name"
               placeholder="Type a channel name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
+              {...register('name', getValidationSchema(channels))}
             />
+            <div>{errors.name?.message}</div>
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -44,7 +57,7 @@ function AddModal({ isShow, socket, handleClose }) {
         <Button
           type="submit"
           variant="primary"
-          onClick={formik.handleSubmit}
+          onClick={handleSubmit(onSubmit)}
         >
           Save
         </Button>
@@ -55,7 +68,6 @@ function AddModal({ isShow, socket, handleClose }) {
 
 AddModal.propTypes = {
   isShow: PropTypes.bool.isRequired,
-  socket: PropTypes.any.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 

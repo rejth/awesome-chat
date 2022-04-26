@@ -1,23 +1,41 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
+import PropTypes from 'prop-types';
+
+import getValidationSchema from './helpers/validation';
+import { useChatService } from '../../../hooks/useContext';
 
 function RenameModal({
   channelId,
-  socket,
   isShow,
   handleClose,
 }) {
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-    },
-    onSubmit: ({ name }) => {
-      socket.emit('renameChannel', { id: channelId, name });
-      handleClose();
+  const { socket } = useChatService();
+  const channels = useSelector((state) => state.chatReducer.data.channels);
+  const currentChannel = channels.find((c) => c.id === channelId);
+
+  const {
+    register,
+    handleSubmit,
+    setFocus,
+    formState: { errors },
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      name: currentChannel?.name || '',
     },
   });
+
+  React.useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
+
+  const onSubmit = ({ name }) => {
+    socket.emit('renameChannel', { id: channelId, name });
+    handleClose();
+  };
 
   return (
     <Modal show={isShow} onHide={handleClose}>
@@ -25,7 +43,7 @@ function RenameModal({
         <Modal.Title>Rename the channel</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={formik.handleSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>Channel name</Form.Label>
             <Form.Control
@@ -33,9 +51,9 @@ function RenameModal({
               type="text"
               name="name"
               placeholder="Type a channel name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
+              {...register('name', getValidationSchema(channels))}
             />
+            <div>{errors.name?.message}</div>
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -49,7 +67,7 @@ function RenameModal({
         <Button
           type="submit"
           variant="primary"
-          onClick={formik.handleSubmit}
+          onClick={handleSubmit(onSubmit)}
         >
           Save
         </Button>
@@ -61,7 +79,6 @@ function RenameModal({
 RenameModal.propTypes = {
   channelId: PropTypes.number.isRequired,
   isShow: PropTypes.bool.isRequired,
-  socket: PropTypes.any.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
