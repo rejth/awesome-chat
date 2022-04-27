@@ -42,7 +42,7 @@ function ChatBody() {
     socket.emit('newMessage', {
       ...newMessage,
       userId: user?.username,
-      channelId: +location.hash.substring(1),
+      channelId: +location.hash.substring(1) || 1,
     });
     reset({ message: '' });
   };
@@ -53,7 +53,7 @@ function ChatBody() {
         {data.channels.map(({ id }) => (
           <Tab.Pane
             key={id}
-            active={id === +location.hash.substring(1)}
+            active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
             eventKey={`#${id}`}
           >
             {data.messages

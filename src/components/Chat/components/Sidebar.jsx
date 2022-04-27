@@ -67,7 +67,7 @@ function ChatSidebar() {
             <ListGroup.Item
               key={id}
               action
-              active={id === +location.hash.substring(1)}
+              active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
               href={`#${id}`}
               className="d-flex justify-content-between align-items-start"
             >

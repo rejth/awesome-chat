@@ -18,6 +18,14 @@ export default class ChatService {
     return response.data;
   };
 
+  signUpUser = async (userData) => {
+    try {
+      return await this.fetchData('/signup', 'post', userData);
+    } catch (error) {
+      return Promise.reject(error.response?.data);
+    }
+  };
+
   loginUser = async (userData) => {
     try {
       return await this.fetchData('/login', 'post', userData);

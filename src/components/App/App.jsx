@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
+import SignUpPage from '../../pages/SignUp';
 import LoginPage from '../../pages/Login';
 import HomePage from '../../pages/Home';
 import ChatPage from '../../pages/Chat';
@@ -15,6 +16,9 @@ function App() {
     <Container className="p-5">
       <Navbar />
       <Switch>
+        <Route path="/signup">
+          <SignUpPage />
+        </Route>
         <Route path="/login">
           <LoginPage />
         </Route>

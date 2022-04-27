@@ -1,10 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { toast } from 'react-hot-toast';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { Form, Button, Container } from 'react-bootstrap';
+import {
+  Form, Button, Container, Nav,
+} from 'react-bootstrap';
 
 import { useAuth, useChatService } from '../hooks/useContext';
 
@@ -102,6 +104,13 @@ function Login() {
           >
             Log in
           </Button>
+
+          <Nav.Link
+            as={Link}
+            to="/signup"
+          >
+            Sign up
+          </Nav.Link>
         </Form>
       </Container>
     </section>

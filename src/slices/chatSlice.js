@@ -7,15 +7,18 @@ const initialState = {
 const chatSlice = createSlice({
   name: 'chatData',
   initialState,
+
   // Редьюсеры в слайсах мутируют состояние и ничего не возвращают наружу
   reducers: {
     setData: (state, { payload }) => {
       state.data = payload;
     },
+
     addChannel: ({ data }, { payload }) => {
       data.currentChannelId = payload.id;
       data.channels.push(payload);
     },
+
     removeChannel: ({ data }, { payload: id }) => {
       const newChannels = data.channels.filter((channel) => channel.id !== id);
       const newMessages = data.messages.filter((message) => message.channelId !== id);
@@ -23,6 +26,7 @@ const chatSlice = createSlice({
       data.channels = newChannels;
       data.messages = newMessages;
     },
+
     renameChannel: ({ data }, { payload }) => {
       const { id } = payload;
       const index = data.channels.findIndex((item) => item.id === id);
@@ -33,12 +37,15 @@ const chatSlice = createSlice({
       ];
       data.channels = newChannels;
     },
+
     addMessage: ({ data }, { payload }) => {
       data.messages.push(payload);
     },
+
     removeAllMessage: ({ data }) => {
       data.messages = [];
     },
+
     removeMessageByChannel: ({ data }, { payload: channelId }) => {
       const newMessages = data.messages.filter((message) => message.channelId !== channelId);
       data.messages = newMessages;
