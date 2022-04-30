@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -8,6 +9,7 @@ import { Form, Button, Container } from 'react-bootstrap';
 import { useAuth, useChatService } from '../hooks/useContext';
 
 function SignUpPage() {
+  const { t } = useTranslation();
   const { service } = useChatService();
   const auth = useAuth();
   const history = useHistory();
@@ -26,16 +28,16 @@ function SignUpPage() {
     onSuccess: (data) => {
       auth.login(data);
       history.push('/chat');
-      toast.success('Sign up successful!', { duration: 10000, icon: '👌' });
+      toast.success(t('signUpForm.notifications.success'), { duration: 10000, icon: '👌' });
     },
     onError: (error) => {
       let message = error?.statusCode;
       switch (message) {
         case 409:
-          message = 'User name already exists. Please choose different';
+          message = t('signUpForm.errors.userName.userExist');
           break;
         default:
-          message = 'Something went wrong. Try again or contact the support';
+          message = t('signUpForm.notifications.error');
           break;
       }
       toast.error(message, { duration: 10000, icon: '🤢' });
@@ -47,27 +49,27 @@ function SignUpPage() {
   return (
     <section className="signup-page">
       <Container className="p-5 mb-4 bg-light rounded-3">
-        <h1 className="header pb-5">Sing up</h1>
+        <h1 className="header pb-5">{t('signUpForm.title')}</h1>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group
             className="mb-3"
             controlId="formBasicName"
           >
-            <Form.Label>User name</Form.Label>
+            <Form.Label>{t('signUpForm.userName')}</Form.Label>
             <Form.Control
               required
               name="username"
               type="text"
-              placeholder="Enter your name"
+              placeholder={t('signUpForm.errors.userName.placeholder')}
               {...register('username', {
-                required: 'Name is required',
+                required: t('signUpForm.errors.userName.required'),
                 minLength: {
                   value: 3,
-                  message: 'Must be at least 3 characters',
+                  message: t('signUpForm.errors.userName.minLength'),
                 },
                 maxLength: {
                   value: 20,
-                  message: 'Must be 20 characters or less',
+                  message: t('signUpForm.errors.userName.maxLength'),
                 },
               })}
             />
@@ -78,21 +80,21 @@ function SignUpPage() {
             className="mb-3"
             controlId="formBasicPassword"
           >
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t('signUpForm.password')}</Form.Label>
             <Form.Control
               required
               name="password"
               type="password"
-              placeholder="Password"
+              placeholder={t('signUpForm.errors.password.placeholder')}
               {...register('password', {
-                required: 'Password is required',
+                required: t('signUpForm.errors.password.required'),
                 minLength: {
                   value: 6,
-                  message: 'Must be at least 6 characters',
+                  message: t('signUpForm.errors.password.minLength'),
                 },
                 maxLength: {
                   value: 16,
-                  message: 'Must be 16 characters or less',
+                  message: t('signUpForm.errors.password.maxLength'),
                 },
               })}
             />
@@ -103,15 +105,15 @@ function SignUpPage() {
             className="mb-3"
             controlId="formBasicConfirmPassword"
           >
-            <Form.Label>Confirm password</Form.Label>
+            <Form.Label>{t('signUpForm.confirmPassword')}</Form.Label>
             <Form.Control
               required
               name="confirmedPassword"
               type="password"
-              placeholder="Password"
+              placeholder={t('signUpForm.errors.password.placeholder')}
               {...register('confirmedPassword', {
-                required: 'Password is required',
-                validate: (value) => getValues('password') === value || 'The password is not the same',
+                required: t('signUpForm.errors.password.required'),
+                validate: (value) => getValues('password') === value || t('signUpForm.errors.password.passwordIsNotSame'),
               })}
             />
             <div>{errors.confirmedPassword?.message}</div>
@@ -122,7 +124,7 @@ function SignUpPage() {
             type="submit"
             onClick={handleSubmit(onSubmit)}
           >
-            Sign up
+            {t('signUpForm.signUpButton')}
           </Button>
         </Form>
       </Container>

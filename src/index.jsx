@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
+import './i18n.js';
 
 import App from './components/App';
 import AppProviders from './components/App/AppProviders';
