@@ -8,6 +8,9 @@ import useChatData from '../../hooks/useChatData';
 function Chat() {
   const { data, isLoading, isError } = useChatData();
 
+  // TODO: инициализировать сокет здесь, а не в App
+  // TODO: продумать кейс с отключением интернета
+
   if (isLoading) return <span>Loading...</span>;
   if (isError) return <span>Error</span>;
 

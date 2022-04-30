@@ -58,9 +58,9 @@ function ChatBody() {
           >
             {data.messages
               .filter((item) => item.channelId === id)
-              .map(({ message, id: mid }) => (
+              .map(({ userId, message, id: mid }) => (
                 <div key={mid}>
-                  <strong>{`${user.username}: `}</strong>
+                  <strong>{`${userId}: `}</strong>
                   <span>{message}</span>
                 </div>
               ))}
