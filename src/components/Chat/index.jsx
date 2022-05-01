@@ -5,6 +5,8 @@ import ChatBody from './components/Body';
 import ChatSidebar from './components/Sidebar';
 import useChatData from '../../hooks/useChatData';
 
+import './styles/index.scss';
+
 function Chat() {
   const { data, isLoading, isError } = useChatData();
 

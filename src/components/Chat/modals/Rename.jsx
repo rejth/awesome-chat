@@ -28,9 +28,7 @@ function RenameModal({
     },
   });
 
-  React.useEffect(() => {
-    setFocus('name');
-  }, [setFocus]);
+  React.useEffect(() => setFocus('name'), [setFocus]);
 
   const onSubmit = ({ name }) => {
     socket.emit('renameChannel', { id: channelId, name });

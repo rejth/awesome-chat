@@ -18,9 +18,7 @@ function AddModal({ isShow, handleClose }) {
     formState: { errors },
   } = useForm({ mode: 'onBlur' });
 
-  React.useEffect(() => {
-    setFocus('name');
-  }, [setFocus]);
+  React.useEffect(() => setFocus('name'), [setFocus]);
 
   const onSubmit = (data) => {
     socket.emit('newChannel', data);

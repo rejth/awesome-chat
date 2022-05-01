@@ -41,15 +41,6 @@ const chatSlice = createSlice({
     addMessage: ({ data }, { payload }) => {
       data.messages.push(payload);
     },
-
-    removeAllMessage: ({ data }) => {
-      data.messages = [];
-    },
-
-    removeMessageByChannel: ({ data }, { payload: channelId }) => {
-      const newMessages = data.messages.filter((message) => message.channelId !== channelId);
-      data.messages = newMessages;
-    },
   },
 });
 
@@ -61,8 +52,6 @@ export const {
   removeChannel,
   renameChannel,
   addMessage,
-  removeAllMessage,
-  removeMessageByChannel,
 } = chatSlice.actions;
 
 // По умолчанию экспортируется редьюсер сгенерированный слайсом

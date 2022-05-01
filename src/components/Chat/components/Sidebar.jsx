@@ -50,7 +50,8 @@ function ChatSidebar() {
           handleClose={() => setModal({ type: '', channelId: null })}
         />
       )}
-      <Col sm={4}>
+
+      <Col sm={3}>
         <div className="d-flex justify-content-between align-items-start">
           <h4 className="mb-3">Channels</h4>
           <button
@@ -62,30 +63,31 @@ function ChatSidebar() {
           </button>
         </div>
 
-        <ListGroup>
-          {data.channels.map(({ id, name, removable }) => (
-            <ListGroup.Item
-              key={id}
-              action
-              active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
-              href={`#${id}`}
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <SplitButton
-                  key={id}
-                  id={`dropdown-split-variants-${id}`}
-                  variant="light"
-                  size="xl"
-                  title={name}
-                >
-                  <Dropdown.Item
-                    eventKey="1"
-                    onClick={() => setModal({ type: 'renaming', channelId: id })}
+        <div className="chat-page__sidebar-list">
+          <ListGroup>
+            {data.channels.map(({ id, name, removable }) => (
+              <ListGroup.Item
+                key={id}
+                action
+                active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
+                href={`#${id}`}
+                className="d-flex justify-content-between align-items-start"
+              >
+                <div className="ms-2 me-auto">
+                  <SplitButton
+                    key={id}
+                    id={`dropdown-split-variants-${id}`}
+                    variant="light"
+                    size="xl"
+                    title={name}
                   >
-                    Rename
-                  </Dropdown.Item>
-                  {removable && (
+                    <Dropdown.Item
+                      eventKey="1"
+                      onClick={() => setModal({ type: 'renaming', channelId: id })}
+                    >
+                      Rename
+                    </Dropdown.Item>
+                    {removable && (
                     <>
                       <Dropdown.Divider />
                       <Dropdown.Item
@@ -95,12 +97,13 @@ function ChatSidebar() {
                         Remove
                       </Dropdown.Item>
                     </>
-                  )}
-                </SplitButton>
-              </div>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+                    )}
+                  </SplitButton>
+                </div>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </div>
       </Col>
     </>
   );

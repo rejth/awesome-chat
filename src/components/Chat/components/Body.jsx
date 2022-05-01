@@ -7,10 +7,11 @@ import {
   Tab,
   Col,
   Button,
+  Alert,
 } from 'react-bootstrap';
 
 import { useChatService, useAuth } from '../../../hooks/useContext';
-import { addMessage, removeAllMessage } from '../../../slices/chatSlice';
+import { addMessage } from '../../../slices/chatSlice';
 
 function ChatBody() {
   const dispatch = useDispatch();
@@ -26,9 +27,7 @@ function ChatBody() {
     setFocus,
   } = useForm();
 
-  React.useEffect(() => {
-    setFocus('message');
-  }, [setFocus]);
+  React.useEffect(() => setFocus('message'), [setFocus]);
 
   React.useEffect(() => {
     socket.on('newMessage', (newMessage) => {
@@ -48,52 +47,53 @@ function ChatBody() {
   };
 
   return (
-    <Col sm={8}>
-      <Tab.Content>
-        {data.channels.map(({ id }) => (
-          <Tab.Pane
-            key={id}
-            active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
-            eventKey={`#${id}`}
-          >
-            {data.messages
-              .filter((item) => item.channelId === id)
-              .map(({ userId, message, id: mid }) => (
-                <div key={mid}>
-                  <strong>{`${userId}: `}</strong>
-                  <span>{message}</span>
-                </div>
-              ))}
-          </Tab.Pane>
-        ))}
+    <Col sm={9} className="p-3 bg-white rounded-3">
+      <div className="chat-page__body">
+        <Tab.Content>
+          {data.channels.map(({ id }) => (
+            <Tab.Pane
+              key={id}
+              active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
+              eventKey={`#${id}`}
+            >
+              {!data.messages
+                .filter((item) => item.channelId === id)
+                .length && (
+                <Alert variant="success">
+                  <Alert.Heading>No messages</Alert.Heading>
+                </Alert>
+              )}
+              {data.messages
+                .filter((item) => item.channelId === id)
+                .map(({ userId, message, id: mid }) => (
+                  <div key={mid} className="pb-2">
+                    <strong>{`${userId}: `}</strong>
+                    <span>{message}</span>
+                  </div>
+                ))}
+            </Tab.Pane>
+          ))}
+        </Tab.Content>
+      </div>
 
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group className="mb-3 mt-5">
-            <Form.Control
-              autoFocus
-              type="text"
-              name="message"
-              placeholder="Type a message"
-              {...register('message')}
-            />
-          </Form.Group>
-          <Button
-            variant="primary"
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-          >
-            Send message
-          </Button>
-          {' '}
-          <Button
-            variant="warning"
-            type="submit"
-            onClick={() => dispatch(removeAllMessage())}
-          >
-            Delete all messages
-          </Button>
-        </Form>
-      </Tab.Content>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group className="mb-3 mt-5">
+          <Form.Control
+            autoFocus
+            type="text"
+            name="message"
+            placeholder="Type a message..."
+            {...register('message')}
+          />
+        </Form.Group>
+        <Button
+          variant="primary"
+          type="submit"
+          onClick={handleSubmit(onSubmit)}
+        >
+          Send
+        </Button>
+      </Form>
     </Col>
   );
 }

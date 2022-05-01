@@ -42,6 +42,7 @@ function NavBar() {
       expand="lg"
       bg="dark"
       variant="dark"
+      className="rounded-3"
     >
       <Container>
         <Navbar.Brand

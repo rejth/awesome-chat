@@ -1,0 +1,10 @@
+.chat-page {
+  &__sidebar-list {
+    overflow: auto;
+    height: 650px;
+  }
+  &__body {
+    overflow: auto;
+    height: 550px;
+  }
+}
