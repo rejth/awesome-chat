@@ -1,7 +1,8 @@
 import axios from 'axios';
+import server from './config.js';
 
 export default class ChatService {
-  _baseUrl = 'http://127.0.0.1:3000/api/v1';
+  _baseUrl = `${server}/api/v1`;
 
   fetchData = async (url, method, data, authHeader) => {
     const response = await axios({

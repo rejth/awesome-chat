@@ -51,6 +51,7 @@ function NavBar() {
         >
           React Chat
         </Navbar.Brand>
+
         <Nav className="mr-auto">
           <Nav.Link
             as={Link}
@@ -65,6 +66,7 @@ function NavBar() {
             Chat
           </Nav.Link>
         </Nav>
+
         <Navbar.Collapse className="justify-content-end">
           <AuthButton />
         </Navbar.Collapse>

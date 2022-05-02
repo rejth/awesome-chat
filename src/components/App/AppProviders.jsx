@@ -11,6 +11,7 @@ import AuthProvider from '../AuthProvider';
 import ChatService from '../../services/chatService';
 import { ChatServiceContext } from '../../contexts';
 import store from '../../slices';
+import server from '../../services/config.js';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +21,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const socket = io.connect('http://127.0.0.1:3000');
+const socket = io.connect(server);
 
 function AppProviders({ children }) {
   const serviceSettings = React.useMemo(() => ({ service: new ChatService(), socket }), []);
