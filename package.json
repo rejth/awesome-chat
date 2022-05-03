@@ -4,6 +4,9 @@
   "description": "This is React Chat app repository",
   "main": "server/plugin.js",
   "type": "module",
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "test": "jest",
     "prebuild": "rm -rf dist",
