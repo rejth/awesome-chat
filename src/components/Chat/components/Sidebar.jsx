@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -18,6 +19,7 @@ import { addChannel, removeChannel, renameChannel } from '../../../slices/chatSl
 function ChatSidebar() {
   const location = useLocation();
   const history = useHistory();
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.chatReducer.data);
@@ -53,7 +55,7 @@ function ChatSidebar() {
 
       <Col sm={3}>
         <div className="d-flex justify-content-between align-items-start">
-          <h4 className="mb-3">Channels</h4>
+          <h4 className="mb-3">{t('chatSidebar.title')}</h4>
           <button
             type="button"
             className="btn btn-outline-success btn-sm float-right"
@@ -85,18 +87,18 @@ function ChatSidebar() {
                       eventKey="1"
                       onClick={() => setModal({ type: 'renaming', channelId: id })}
                     >
-                      Rename
+                      {t('chatSidebar.renameChannelButton')}
                     </Dropdown.Item>
                     {removable && (
-                    <>
-                      <Dropdown.Divider />
-                      <Dropdown.Item
-                        eventKey="2"
-                        onClick={() => setModal({ type: 'removing', channelId: id })}
-                      >
-                        Remove
-                      </Dropdown.Item>
-                    </>
+                      <>
+                        <Dropdown.Divider />
+                        <Dropdown.Item
+                          eventKey="2"
+                          onClick={() => setModal({ type: 'removing', channelId: id })}
+                        >
+                          {t('chatSidebar.removeChannelButton')}
+                        </Dropdown.Item>
+                      </>
                     )}
                   </SplitButton>
                 </div>

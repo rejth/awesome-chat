@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -14,6 +15,7 @@ import { useChatService, useAuth } from '../../../hooks/useContext';
 import { addMessage } from '../../../slices/chatSlice';
 
 function ChatBody() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
   const data = useSelector((state) => state.chatReducer.data);
@@ -60,7 +62,7 @@ function ChatBody() {
                 .filter((item) => item.channelId === id)
                 .length && (
                 <Alert variant="success">
-                  <Alert.Heading>No messages</Alert.Heading>
+                  <Alert.Heading>{t('chatBody.noMessages')}</Alert.Heading>
                 </Alert>
               )}
               {data.messages
@@ -82,7 +84,7 @@ function ChatBody() {
             autoFocus
             type="text"
             name="message"
-            placeholder="Type a message..."
+            placeholder={t('chatBody.sendMessageButton.placeholder')}
             {...register('message')}
           />
         </Form.Group>
@@ -91,7 +93,7 @@ function ChatBody() {
           type="submit"
           onClick={handleSubmit(onSubmit)}
         >
-          Send
+          {t('chatBody.sendMessageButton.title')}
         </Button>
       </Form>
     </Col>

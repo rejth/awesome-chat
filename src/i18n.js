@@ -63,7 +63,11 @@ const resources = {
         title: 'Добро пожаловать в React Chat',
       },
       chatBody: {
-        sendMessageButton: 'Отправить',
+        noMessages: 'Нет сообщений',
+        sendMessageButton: {
+          title: 'Отправить',
+          placeholder: 'Начните набирать сообщение',
+        },
       },
       chatSidebar: {
         title: 'Каналы',
@@ -85,10 +89,6 @@ const resources = {
           closeButton: 'Закрыть',
           errors: {
             placeholder: 'Введите название канала',
-            required: 'Необходимо заполнить поле',
-            minLength: 'Необходимо ввести как минимум 2 символа',
-            maxLength: 'Необходимо ввести не более 20 символов',
-            channelExist: 'Канал с таким названием уже существует',
           },
         },
         renameChannelModal: {
@@ -98,18 +98,20 @@ const resources = {
           closeButton: 'Закрыть',
           errors: {
             placeholder: 'Введите название канала',
-            required: 'Необходимо заполнить поле',
-            minLength: 'Необходимо ввести как минимум 2 символа',
-            maxLength: 'Необходимо ввести не более 20 символов',
-            channelExist: 'Канал с таким названием уже существует',
           },
         },
         removeChannelModal: {
           title: 'Удаление канала',
           subTitle1: 'Вы уверены?',
           subTitle2: 'Вы не сможете восстановить канал после удаления',
-          saveButton: 'Сохранить',
+          saveButton: 'Удалить',
           closeButton: 'Отменить',
+        },
+        errors: {
+          required: 'Необходимо заполнить поле',
+          minLength: 'Необходимо ввести как минимум 2 символа',
+          maxLength: 'Необходимо ввести не более 20 символов',
+          channelExist: 'Канал с таким названием уже существует',
         },
       },
     },
@@ -173,7 +175,11 @@ const resources = {
         title: 'Welcome to React Chat',
       },
       chatBody: {
-        sendMessageButton: 'Send',
+        noMessages: 'No messages',
+        sendMessageButton: {
+          title: 'Send',
+          placeholder: 'Type a message',
+        },
       },
       chatSidebar: {
         title: 'Channels',
@@ -195,10 +201,6 @@ const resources = {
           closeButton: 'Close',
           errors: {
             placeholder: 'Type a channel name',
-            required: 'Channel name is required',
-            minLength: 'Must be at least 2 characters',
-            maxLength: 'Must be 20 characters or less',
-            channelExist: 'The channel with the same name already exists',
           },
         },
         renameChannelModal: {
@@ -208,10 +210,6 @@ const resources = {
           closeButton: 'Close',
           errors: {
             placeholder: 'Type a channel name',
-            required: 'Channel name is required',
-            minLength: 'Must be at least 2 characters',
-            maxLength: 'Must be 20 characters or less',
-            channelExist: 'The channel with the same name already exists',
           },
         },
         removeChannelModal: {
@@ -220,6 +218,12 @@ const resources = {
           subTitle2: 'You cannot restore the channel after removing',
           saveButton: 'Save',
           closeButton: 'Cancel',
+        },
+        errors: {
+          required: 'Channel name is required',
+          minLength: 'Must be at least 2 characters',
+          maxLength: 'Must be 20 characters or less',
+          channelExist: 'The channel with the same name already exists',
         },
       },
     },
@@ -230,7 +234,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: 'en', // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
+    lng: 'ru', // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option
 

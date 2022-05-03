@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
@@ -9,7 +10,9 @@ function RemoveModal({
   isShow,
   handleClose,
 }) {
+  const { t } = useTranslation();
   const { socket } = useChatService();
+
   const onSubmit = () => {
     socket.emit('removeChannel', { id: channelId });
     handleClose();
@@ -18,12 +21,12 @@ function RemoveModal({
   return (
     <Modal show={isShow} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Remove the channel</Modal.Title>
+        <Modal.Title>{t('modals.removeChannelModal.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Are you sure?</h4>
+        <h4>{t('modals.removeChannelModal.subTitle1')}</h4>
         <p>
-          You cannot restore the channel after removing
+          {t('modals.removeChannelModal.subTitle2')}
         </p>
       </Modal.Body>
       <Modal.Footer>
@@ -31,14 +34,14 @@ function RemoveModal({
           variant="secondary"
           onClick={handleClose}
         >
-          Cancel
+          {t('modals.removeChannelModal.closeButton')}
         </Button>
         <Button
           type="submit"
           variant="danger"
           onClick={onSubmit}
         >
-          Remove
+          {t('modals.removeChannelModal.saveButton')}
         </Button>
       </Modal.Footer>
     </Modal>

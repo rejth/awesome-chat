@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Container,
@@ -12,6 +13,7 @@ import { useAuth } from '../../hooks/useContext';
 function AuthButton() {
   const auth = useAuth();
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     auth.user
@@ -21,7 +23,7 @@ function AuthButton() {
           to="/login"
           onClick={auth.logout}
         >
-          Log out
+          {t('header.logoutButton')}
         </Button>
       )
       : (
@@ -30,13 +32,14 @@ function AuthButton() {
           to="/login"
           state={{ from: location }}
         >
-          Log in
+          {t('header.loginButton')}
         </Button>
       )
   );
 }
 
 function NavBar() {
+  const { t } = useTranslation();
   return (
     <Navbar
       expand="lg"
@@ -49,7 +52,7 @@ function NavBar() {
           as={Link}
           to="/"
         >
-          React Chat
+          {t('header.logo')}
         </Navbar.Brand>
 
         <Nav className="mr-auto">
@@ -57,13 +60,13 @@ function NavBar() {
             as={Link}
             to="/home"
           >
-            Home
+            {t('header.home')}
           </Nav.Link>
           <Nav.Link
             as={Link}
             to="/chat"
           >
-            Chat
+            {t('header.chat')}
           </Nav.Link>
         </Nav>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, Link } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { toast } from 'react-hot-toast';
@@ -13,22 +14,23 @@ import { useAuth, useChatService } from '../hooks/useContext';
 function Login() {
   const auth = useAuth();
   const { service } = useChatService();
+  const { t } = useTranslation();
   const history = useHistory();
 
   const mutation = useMutation(service.loginUser, {
     onSuccess: (data) => {
       auth.login(data);
       history.push('/chat');
-      toast.success('Login successful!', { duration: 5000, icon: '👌' });
+      toast.success(t('loginForm.notifications.success'), { duration: 5000, icon: '👌' });
     },
     onError: (error) => {
       let message = error?.statusCode;
       switch (message) {
         case 401:
-          message = 'User does not exists. Please sign up';
+          message = t('loginForm.errors.userName.userNotExist');
           break;
         default:
-          message = 'Something went wrong. Try again or contact the support';
+          message = t('loginForm.notifications.error');
           break;
       }
       toast.error(message, { duration: 5000, icon: '🤢' });
@@ -42,13 +44,13 @@ function Login() {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .max(32, 'Must be 32 characters or less')
-        .min(2, 'Must be at least 2 characters')
-        .required('Name is required'),
+        .max(20, t('loginForm.errors.userName.maxLength'))
+        .min(3, t('loginForm.errors.userName.minLength'))
+        .required(t('loginForm.errors.userName.required')),
       password: Yup.string()
-        .max(20, 'Must be 20 characters or less')
-        .min(4, 'Must be at least 4 characters')
-        .required('Password is required'),
+        .max(16, t('loginForm.errors.password.maxLength'))
+        .min(6, t('loginForm.errors.password.minLength'))
+        .required(t('loginForm.errors.password.required')),
     }),
     onSubmit: (values) => {
       mutation.mutate(values);
@@ -58,18 +60,18 @@ function Login() {
   return (
     <section className="login-page">
       <Container className="p-5 mb-4 bg-light rounded-3">
-        <h1 className="header pb-5">Sing in</h1>
+        <h1 className="header pb-5">{t('loginForm.title')}</h1>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group
             className="mb-3"
             controlId="formBasicEmail"
           >
-            <Form.Label>User name</Form.Label>
+            <Form.Label>{t('loginForm.userName')}</Form.Label>
             <Form.Control
               required
               name="username"
               type="text"
-              placeholder="Enter your name"
+              placeholder={t('loginForm.errors.userName.placeholder')}
               value={formik.values.username}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -83,12 +85,12 @@ function Login() {
             className="mb-3"
             controlId="formBasicPassword"
           >
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t('loginForm.password')}</Form.Label>
             <Form.Control
               required
               name="password"
               type="password"
-              placeholder="Password"
+              placeholder={t('loginForm.errors.password.placeholder')}
               value={formik.values.password}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -102,14 +104,14 @@ function Login() {
             variant="primary"
             type="submit"
           >
-            Log in
+            {t('loginForm.loginButton')}
           </Button>
 
           <Nav.Link
             as={Link}
             to="/signup"
           >
-            Sign up
+            {t('signUpForm.signUpButton')}
           </Nav.Link>
         </Form>
       </Container>

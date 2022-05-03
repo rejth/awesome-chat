@@ -1,15 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Modal, Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import getValidationSchema from './helpers/validation';
+import useValidationSchema from './helpers/validation';
 import { useChatService } from '../../../hooks/useContext';
 
 function AddModal({ isShow, handleClose }) {
   const channels = useSelector((state) => state.chatReducer.data.channels);
+  const schema = useValidationSchema(channels);
   const { socket } = useChatService();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -28,18 +31,18 @@ function AddModal({ isShow, handleClose }) {
   return (
     <Modal show={isShow} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add a channel</Modal.Title>
+        <Modal.Title>{t('modals.addChannelModal.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
-            <Form.Label>Channel name</Form.Label>
+            <Form.Label>{t('modals.addChannelModal.channelName')}</Form.Label>
             <Form.Control
               autoFocus
               type="text"
               name="name"
-              placeholder="Type a channel name"
-              {...register('name', getValidationSchema(channels))}
+              placeholder={t('modals.addChannelModal.errors.placeholder')}
+              {...register('name', schema)}
             />
             <div>{errors.name?.message}</div>
           </Form.Group>
@@ -50,14 +53,14 @@ function AddModal({ isShow, handleClose }) {
           variant="secondary"
           onClick={handleClose}
         >
-          Close
+          {t('modals.addChannelModal.closeButton')}
         </Button>
         <Button
           type="submit"
           variant="primary"
           onClick={handleSubmit(onSubmit)}
         >
-          Save
+          {t('modals.addChannelModal.saveButton')}
         </Button>
       </Modal.Footer>
     </Modal>

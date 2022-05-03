@@ -1,17 +1,21 @@
-export default function getValidationSchema(channels) {
+import { useTranslation } from 'react-i18next';
+
+export default function useValidationSchema(channels) {
+  const { t } = useTranslation();
+
   return {
-    required: 'Channel name is required',
+    required: t('modals.errors.required'),
     minLength: {
       value: 2,
-      message: 'Must be at least 2 characters',
+      message: t('modals.errors.minLength'),
     },
     maxLength: {
       value: 20,
-      message: 'Must be 20 characters or less',
+      message: t('modals.errors.maxLength'),
     },
     validate: (value) => {
       const isExist = !!channels.find((item) => item?.name === value);
-      return !isExist || 'The channel with the same name already exists';
+      return !isExist || t('modals.errors.channelExist');
     },
   };
 }
