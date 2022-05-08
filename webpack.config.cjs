@@ -15,7 +15,6 @@ function getEnvValues() {
 
 module.exports = () => {
   const mode = process.env.NODE_ENV || 'development';
-  const fileEnv = dotenv.config().parsed;
 
   const target = mode === 'development' ? 'web' : 'browserslist';
   const devtool = mode === 'development' ? 'inline-source-map' : 'source-map';
