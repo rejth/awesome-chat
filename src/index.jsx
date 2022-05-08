@@ -6,7 +6,7 @@ import 'regenerator-runtime/runtime.js';
 import './i18n.js';
 
 import App from './components/App';
-import AppProviders from './components/App/AppProviders';
+import AppProviders from './components/AppProvider/AppProviders';
 
 import '../assets/application.scss';
 import '../assets/index.scss';

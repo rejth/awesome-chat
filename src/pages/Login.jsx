@@ -13,11 +13,11 @@ import { useAuth, useChatService } from '../hooks/useContext';
 
 function Login() {
   const auth = useAuth();
-  const { service } = useChatService();
+  const { api } = useChatService();
   const { t } = useTranslation();
   const history = useHistory();
 
-  const mutation = useMutation(service.loginUser, {
+  const mutation = useMutation(api.loginUser, {
     onSuccess: (data) => {
       auth.login(data);
       history.push('/chat');
@@ -49,7 +49,7 @@ function Login() {
         .required(t('loginForm.errors.userName.required')),
       password: Yup.string()
         .max(16, t('loginForm.errors.password.maxLength'))
-        .min(6, t('loginForm.errors.password.minLength'))
+        .min(5, t('loginForm.errors.password.minLength'))
         .required(t('loginForm.errors.password.required')),
     }),
     onSubmit: (values) => {

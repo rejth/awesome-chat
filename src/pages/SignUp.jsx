@@ -10,7 +10,7 @@ import { useAuth, useChatService } from '../hooks/useContext';
 
 function SignUpPage() {
   const { t } = useTranslation();
-  const { service } = useChatService();
+  const { api } = useChatService();
   const auth = useAuth();
   const history = useHistory();
 
@@ -24,7 +24,7 @@ function SignUpPage() {
 
   React.useEffect(() => setFocus('username'), [setFocus]);
 
-  const mutation = useMutation(service.signUpUser, {
+  const mutation = useMutation(api.signUpUser, {
     onSuccess: (data) => {
       auth.login(data);
       history.push('/chat');

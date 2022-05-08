@@ -10,10 +10,11 @@ import PropTypes from 'prop-types';
 
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
 import AuthProvider from '../AuthProvider';
-import ChatService from '../../services/chatService';
 import { ChatServiceContext } from '../../contexts';
 import store from '../../slices';
-import server from '../../services/config.js';
+
+import API_URL from '../../services/http/config.js';
+import BackendEndpoints from '../../api/index.js';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,19 +31,19 @@ const rollbarConfig = {
   environment: process.env.NODE_ENV,
   code_version: '1.0.0',
   server: {
-    root: server,
+    root: API_URL,
     branch: 'main',
   },
 };
 
-const socket = io.connect(server);
+const socket = io.connect(API_URL);
 
 function AppProviders({ children }) {
-  const serviceSettings = React.useMemo(() => ({ service: new ChatService(), socket }), []);
+  const serviceSettings = React.useMemo(() => ({ api: BackendEndpoints, socket }), []);
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <Toaster position="bottom-right" />
+      <Toaster position="top-right" />
       <StoreProvider store={store}>
         <ChatServiceContext.Provider value={serviceSettings}>
           <RollbarProvider config={rollbarConfig}>

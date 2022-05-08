@@ -14,6 +14,10 @@ const chatSlice = createSlice({
       state.data = payload;
     },
 
+    clear: (state) => {
+      state.data = null;
+    },
+
     addChannel: ({ data }, { payload }) => {
       data.currentChannelId = payload.id;
       data.channels.push(payload);
@@ -48,6 +52,7 @@ const chatSlice = createSlice({
 // Действия генерируются автоматически из имен ключей редьюсеров
 export const {
   setData,
+  clear,
   addChannel,
   removeChannel,
   renameChannel,

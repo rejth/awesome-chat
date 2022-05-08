@@ -1,31 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { useQuery } from 'react-query';
 
-import ChatService from '../services/chatService.js';
+import BackendEndpoints from '../api/index.js';
 import { setData } from '../slices/chatSlice.js';
-
-const service = new ChatService();
-
-function getAuthHeader() {
-  const credentials = JSON.parse(localStorage.getItem('credentials'));
-
-  if (credentials && credentials.token) {
-    return { Authorization: `Bearer ${credentials.token}` };
-  }
-
-  return {};
-}
 
 function useChatData() {
   const dispatch = useDispatch();
-  const authHeader = getAuthHeader();
+  const { getChatData } = BackendEndpoints;
 
-  const {
-    isLoading,
-    isError,
-    data,
-  } = useQuery('chatData', () => service.getChatData(authHeader));
-
+  const { isLoading, isError, data } = useQuery('chatData', () => getChatData());
   if (data) dispatch(setData(data));
 
   return { data, isLoading, isError };

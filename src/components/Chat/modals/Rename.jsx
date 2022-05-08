@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Modal, Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import useValidationSchema from './helpers/validation';
+import useValidationSchema from '../hooks/useValidationSchema';
 import { useChatService } from '../../../hooks/useContext';
 
 function RenameModal({
