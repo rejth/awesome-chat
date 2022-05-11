@@ -21,9 +21,6 @@
       "react-app/jest"
     ]
   },
-  "jest": {
-    "transform": {}
-  },
   "author": "Ilya Kirsanov",
   "license": "ISC",
   "homepage": "",
@@ -58,6 +55,7 @@
     "http-errors": "^2.0.0",
     "i18next": "^21.6.16",
     "lodash": "^4.17.21",
+    "pino-pretty": "^7.6.1",
     "point-of-view": "^5.1.0",
     "prop-types": "^15.8.1",
     "pug": "^3.0.2",
@@ -82,6 +80,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@jest/globals": "^27.5.1",
+    "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
     "dotenv": "^16.0.0",
