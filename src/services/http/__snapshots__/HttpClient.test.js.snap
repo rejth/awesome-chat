@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing an instance of the HttpClient class getOptionsWithBody 1`] = `
+Object {
+  "data": Object {
+    "first": 1,
+    "second": 2,
+  },
+  "headers": Object {
+    "Authorization": "Bearer token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "post",
+  "url": "https://some-url.com",
+}
+`;
+
+exports[`Testing an instance of the HttpClient class getRequestOptions with authorization token 1`] = `
+Object {
+  "headers": Object {
+    "Authorization": "Bearer token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "post",
+  "url": "https://some-url.com",
+}
+`;
+
+exports[`Testing an instance of the HttpClient class getRequestOptions without authorization token 1`] = `
+Object {
+  "headers": Object {
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "post",
+  "url": "https://some-url.com",
+}
+`;
+
+exports[`Testing an instance of the HttpClient class getUrlWithData 1`] = `"https://some-url.com?first=1&second=2"`;
+
+exports[`Testing an instance of the HttpClient class method DELETE 1`] = `
+Object {
+  "headers": Object {
+    "Authorization": "Bearer some-token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "delete",
+  "url": "https://some-url.com?first=1&second=2",
+}
+`;
+
+exports[`Testing an instance of the HttpClient class method GET 1`] = `
+Object {
+  "headers": Object {
+    "Authorization": "Bearer some-token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "get",
+  "url": "https://some-url.com?first=1&second=2",
+}
+`;
+
+exports[`Testing an instance of the HttpClient class method POST 1`] = `
+Object {
+  "data": Object {
+    "first": 1,
+    "second": 2,
+  },
+  "headers": Object {
+    "Authorization": "Bearer some-token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "post",
+  "url": "https://some-url.com",
+}
+`;
+
+exports[`Testing an instance of the HttpClient class method PUT 1`] = `
+Object {
+  "data": Object {
+    "first": 1,
+    "second": 2,
+  },
+  "headers": Object {
+    "Authorization": "Bearer some-token",
+    "Content-Type": "application/json;charset=utf-8",
+  },
+  "method": "put",
+  "url": "https://some-url.com",
+}
+`;

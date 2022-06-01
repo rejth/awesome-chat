@@ -1,5 +1,5 @@
 export default class HttpClient {
-  fetch = fetch;
+  fetch = null;
 
   constructor(fetchFunction) {
     this.fetch = fetchFunction || fetch;
@@ -68,7 +68,6 @@ export default class HttpClient {
   static getDataLikeString(data) {
     if (!data) return data;
     if (typeof data === 'object') return JSON.stringify(data);
-    if (typeof data.toString === 'function') return data.toString();
     return data;
   }
 

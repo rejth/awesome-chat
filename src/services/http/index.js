@@ -14,9 +14,9 @@ function apiClient({ ...options }) {
 }
 
 const http = new HttpClient((options) => apiClient(options)
-  .then((response) => (response.statusCode > 299
+  .then((response) => (response?.statusCode > 299
     ? Promise.reject(response)
     : Promise.resolve(response?.data || {})))
-  .catch((error) => Promise.reject(error.response?.data)));
+  .catch((error) => Promise.reject(error?.response?.data)));
 
 export default http;
