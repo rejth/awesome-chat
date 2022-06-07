@@ -68,7 +68,11 @@ function ChatBody() {
               {data.messages
                 .filter((item) => item.channelId === id)
                 .map(({ userId, message, id: mid }) => (
-                  <div key={mid} className="pb-2">
+                  <div
+                    key={mid}
+                    data-testid="message-elem"
+                    className="pb-2"
+                  >
                     <strong>{`${userId}: `}</strong>
                     <span>{message}</span>
                   </div>
@@ -88,7 +92,9 @@ function ChatBody() {
             {...register('message')}
           />
         </Form.Group>
+
         <Button
+          data-testid="send-msg-btn"
           variant="primary"
           type="submit"
           onClick={handleSubmit(onSubmit)}

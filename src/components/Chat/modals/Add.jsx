@@ -33,6 +33,7 @@ function AddModal({ isShow, handleClose }) {
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.addChannelModal.title')}</Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
@@ -48,14 +49,17 @@ function AddModal({ isShow, handleClose }) {
           </Form.Group>
         </Form>
       </Modal.Body>
+
       <Modal.Footer>
         <Button
+          data-testid="cancel-add-btn"
           variant="secondary"
           onClick={handleClose}
         >
           {t('modals.addChannelModal.closeButton')}
         </Button>
         <Button
+          data-testid="save-add-btn"
           type="submit"
           variant="primary"
           onClick={handleSubmit(onSubmit)}

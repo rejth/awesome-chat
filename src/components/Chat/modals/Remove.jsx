@@ -23,20 +23,22 @@ function RemoveModal({
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.removeChannelModal.title')}</Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
         <h4>{t('modals.removeChannelModal.subTitle1')}</h4>
-        <p>
-          {t('modals.removeChannelModal.subTitle2')}
-        </p>
+        <p>{t('modals.removeChannelModal.subTitle2')}</p>
       </Modal.Body>
+
       <Modal.Footer>
         <Button
+          data-testid="cancel-remove-btn"
           variant="secondary"
           onClick={handleClose}
         >
           {t('modals.removeChannelModal.closeButton')}
         </Button>
         <Button
+          data-testid="save-remove-btn"
           type="submit"
           variant="danger"
           onClick={onSubmit}

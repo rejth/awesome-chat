@@ -12,12 +12,16 @@
     "react", // @eslint-plugin-react
     "react-hooks", // @eslint-plugin-react-hooks
     "import", // @eslint-plugin-import
-    "jsx-a11y" // @eslint-plugin-jsx-a11y
+    "jsx-a11y", // @eslint-plugin-jsx-a11y
+    "jest", // @eslint-plugin-jest
+    "jest-dom" // @eslint-plugin-jest-dom
   ], // Turn on the plugins and peer plugins
 
   "extends": [
     "airbnb", // Use the recommended rules from @eslint-config-airbnb
-    "plugin:react/recommended" // Extends prevouos rules by rules from @eslint-plugin-react
+    "plugin:react/recommended", // Extends prevouos rules by recommended rules from @eslint-plugin-react
+    "plugin:jest/recommended", // Extends prevouos rules by recommended rules from @eslint-plugin-jest
+    "plugin:jest-dom/recommended" // Extends prevouos rules by recommended rules from @eslint-plugin-jest-dom
   ],
 
   "parser": "@babel/eslint-parser", // Specifies the ESLint parser
@@ -51,6 +55,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-pascal-case": ["error"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-sort-props": [
       "error",
       {
@@ -67,7 +72,17 @@
         "maximum": 2,
         "when": "always"
       }
-    ]
+    ],
+
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
+    "jest-dom/prefer-checked": "error",
+    "jest-dom/prefer-enabled-disabled": "error",
+    "jest-dom/prefer-required": "error",
+    "jest-dom/prefer-to-have-attribute": "error"
   },
 
   "ignorePatterns": ["./node_modules/**", "./src/**/*.cjs"],

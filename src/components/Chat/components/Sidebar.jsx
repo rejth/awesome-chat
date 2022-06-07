@@ -57,6 +57,7 @@ function ChatSidebar() {
         <div className="d-flex justify-content-between align-items-start">
           <h4 className="mb-3">{t('chatSidebar.title')}</h4>
           <button
+            data-testid="add-channel-btn"
             type="button"
             className="btn btn-outline-success btn-sm float-right"
             onClick={() => setModal({ type: 'adding', channelId: null })}
@@ -70,6 +71,7 @@ function ChatSidebar() {
             {data.channels.map(({ id, name, removable }) => (
               <ListGroup.Item
                 key={id}
+                data-testid="channel-elem-link"
                 action
                 active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
                 href={`#${id}`}
@@ -85,6 +87,7 @@ function ChatSidebar() {
                   >
                     <Dropdown.Item
                       eventKey="1"
+                      data-testid="rename-channel-btn"
                       onClick={() => setModal({ type: 'renaming', channelId: id })}
                     >
                       {t('chatSidebar.renameChannelButton')}
@@ -94,6 +97,7 @@ function ChatSidebar() {
                         <Dropdown.Divider />
                         <Dropdown.Item
                           eventKey="2"
+                          data-testid="remove-channel-btn"
                           onClick={() => setModal({ type: 'removing', channelId: id })}
                         >
                           {t('chatSidebar.removeChannelButton')}

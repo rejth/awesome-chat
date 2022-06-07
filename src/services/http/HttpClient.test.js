@@ -15,22 +15,23 @@ const http = new HttpClient((optionsWithBody) => (
 HttpClient.getAccessToken = jest.fn();
 
 describe('Testing an instance of the HttpClient class', () => {
+  let method = '';
   let url = '';
   let data = {};
 
   beforeAll(() => {
+    method = 'post';
     url = 'https://some-url.com';
     data = { first: 1, second: 2 };
   });
 
   test('getRequestOptions with authorization token', () => {
-    const method = 'post';
     HttpClient.getAccessToken.mockReturnValue('token');
     const options = HttpClient.getRequestOptions(method, url);
 
     expect(HttpClient.getAccessToken).toHaveBeenCalledTimes(1);
-    expect(options?.url).toBe(url);
     expect(options?.method).toBe(method);
+    expect(options?.url).toBe(url);
     expect(options).toEqual(expect.objectContaining({
       url: expect.any(String),
       method: expect.any(String),
@@ -43,21 +44,19 @@ describe('Testing an instance of the HttpClient class', () => {
   });
 
   test('getRequestOptions without authorization token', () => {
-    const method = 'post';
     HttpClient.getAccessToken.mockReturnValue(null);
     const options = HttpClient.getRequestOptions(method, url);
 
     expect(HttpClient.getAccessToken).toHaveBeenCalledTimes(1);
     expect(options).toEqual(expect.objectContaining({
-      headers: expect.objectContaining({
-        'Content-Type': expect.any(String),
+      headers: expect.not.objectContaining({
+        Authorization: expect.any(String),
       }),
     }));
     expect(options).toMatchSnapshot();
   });
 
   test('getOptionsWithBody', () => {
-    const method = 'post';
     HttpClient.getAccessToken.mockReturnValue('token');
     const spy = jest.spyOn(HttpClient, 'getRequestOptions');
 
@@ -66,6 +65,7 @@ describe('Testing an instance of the HttpClient class', () => {
 
     expect(HttpClient.getAccessToken).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledTimes(1);
+    expect(optionsWithBody).toHaveProperty('data');
     expect(optionsWithBody?.data).toMatchObject(data);
     spy.mockRestore();
     expect(optionsWithBody).toMatchSnapshot();

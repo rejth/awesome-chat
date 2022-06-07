@@ -43,6 +43,7 @@ function RenameModal({
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.renameChannelModal.title')}</Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
@@ -58,14 +59,17 @@ function RenameModal({
           </Form.Group>
         </Form>
       </Modal.Body>
+
       <Modal.Footer>
         <Button
+          data-testid="cancel-rename-btn"
           variant="secondary"
           onClick={handleClose}
         >
           {t('modals.renameChannelModal.closeButton')}
         </Button>
         <Button
+          data-testid="save-rename-btn"
           type="submit"
           variant="primary"
           onClick={handleSubmit(onSubmit)}

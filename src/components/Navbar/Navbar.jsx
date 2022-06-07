@@ -19,6 +19,7 @@ function AuthButton() {
     auth.user
       ? (
         <Button
+          data-testid="login-btn"
           as={Link}
           to="/login"
           onClick={auth.logout}
@@ -28,6 +29,7 @@ function AuthButton() {
       )
       : (
         <Button
+          data-testid="logout-btn"
           as={Link}
           to="/login"
           state={{ from: location }}
@@ -49,6 +51,7 @@ function NavBar() {
     >
       <Container>
         <Navbar.Brand
+          data-testid="home-link"
           as={Link}
           to="/"
         >
@@ -57,12 +60,14 @@ function NavBar() {
 
         <Nav className="mr-auto">
           <Nav.Link
+            data-testid="home-link"
             as={Link}
             to="/home"
           >
             {t('header.home')}
           </Nav.Link>
           <Nav.Link
+            data-testid="chat-link"
             as={Link}
             to="/chat"
           >

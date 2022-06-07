@@ -58,9 +58,10 @@ function Login() {
   });
 
   return (
-    <section className="login-page">
+    <section data-testid="login-page" className="login-page">
       <Container className="p-5 mb-4 bg-light rounded-3">
         <h1 className="header pb-5">{t('loginForm.title')}</h1>
+
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group
             className="mb-3"
@@ -101,6 +102,7 @@ function Login() {
           </Form.Group>
 
           <Button
+            data-testid="login-btn"
             variant="primary"
             type="submit"
           >
@@ -108,6 +110,7 @@ function Login() {
           </Button>
 
           <Nav.Link
+            data-testid="signup-link"
             as={Link}
             to="/signup"
           >

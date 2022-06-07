@@ -47,9 +47,10 @@ function SignUpPage() {
   const onSubmit = (data) => mutation.mutate(data);
 
   return (
-    <section className="signup-page">
+    <section data-testid="signup-page" className="signup-page">
       <Container className="p-5 mb-4 bg-light rounded-3">
         <h1 className="header pb-5">{t('signUpForm.title')}</h1>
+
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group
             className="mb-3"
@@ -120,6 +121,7 @@ function SignUpPage() {
           </Form.Group>
 
           <Button
+            data-testid="signup-btn"
             variant="primary"
             type="submit"
             onClick={handleSubmit(onSubmit)}
