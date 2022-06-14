@@ -12,13 +12,14 @@ import {
 } from 'react-bootstrap';
 
 import { useChatService, useAuth } from '../../../hooks/useContext';
-import { addMessage } from '../../../slices/chatSlice';
+import { addMessage } from '../../../store/slices/chatSlice.js';
+import { getChatData } from '../../../store/selectors/index.js';
 
 function ChatBody() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
-  const data = useSelector((state) => state.chatReducer.data);
+  const data = useSelector(getChatData);
 
   const { socket } = useChatService();
   const { user } = useAuth();

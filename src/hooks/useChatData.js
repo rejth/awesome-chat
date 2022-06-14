@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useQuery } from 'react-query';
 
 import BackendEndpoints from '../api/index.js';
-import { setData } from '../slices/chatSlice.js';
+import { setData } from '../store/slices/chatSlice.js';
 
 function useChatData() {
   const dispatch = useDispatch();

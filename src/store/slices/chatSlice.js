@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  data: null,
+  data: {},
 };
 
 const chatSlice = createSlice({
-  name: 'chatData',
+  name: 'chatReducer',
   initialState,
 
   // Редьюсеры в слайсах мутируют состояние и ничего не возвращают наружу
@@ -14,36 +14,31 @@ const chatSlice = createSlice({
       state.data = payload;
     },
 
-    clear: (state) => {
-      state.data = null;
+    addChannel: (state, { payload }) => {
+      state.data.currentChannelId = payload.id;
+      state.data.channels.push(payload);
     },
 
-    addChannel: ({ data }, { payload }) => {
-      data.currentChannelId = payload.id;
-      data.channels.push(payload);
+    removeChannel: (state, { payload: id }) => {
+      const newChannels = state.data.channels.filter((channel) => channel.id !== id);
+      const newMessages = state.data.messages.filter((message) => message.channelId !== id);
+      state.data.currentChannelId = state.data.channels[0].id;
+      state.data.channels = newChannels;
+      state.data.messages = newMessages;
     },
 
-    removeChannel: ({ data }, { payload: id }) => {
-      const newChannels = data.channels.filter((channel) => channel.id !== id);
-      const newMessages = data.messages.filter((message) => message.channelId !== id);
-      data.currentChannelId = data.channels[0].id;
-      data.channels = newChannels;
-      data.messages = newMessages;
-    },
-
-    renameChannel: ({ data }, { payload }) => {
+    renameChannel: (state, { payload }) => {
       const { id } = payload;
-      const index = data.channels.findIndex((item) => item.id === id);
-      const newChannels = [
-        ...data.channels.slice(0, index),
+      const removedChannelIndex = state.data.channels.findIndex((item) => item.id === id);
+      state.data.channels = [
+        ...state.data.channels.slice(0, removedChannelIndex),
         payload,
-        ...data.channels.slice(index + 1),
+        ...state.data.channels.slice(removedChannelIndex + 1),
       ];
-      data.channels = newChannels;
     },
 
-    addMessage: ({ data }, { payload }) => {
-      data.messages.push(payload);
+    addMessage: (state, { payload }) => {
+      state.data.messages.push(payload);
     },
   },
 });
@@ -52,7 +47,6 @@ const chatSlice = createSlice({
 // Действия генерируются автоматически из имен ключей редьюсеров
 export const {
   setData,
-  clear,
   addChannel,
   removeChannel,
   renameChannel,

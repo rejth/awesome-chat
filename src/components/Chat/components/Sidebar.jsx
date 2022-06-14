@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Col,
@@ -14,34 +14,35 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import showModal from '../modals';
 import { useChatService } from '../../../hooks/useContext';
-import { addChannel, removeChannel, renameChannel } from '../../../slices/chatSlice';
+import { addChannel, removeChannel, renameChannel } from '../../../store/slices/chatSlice.js';
+import { getChatData } from '../../../store/selectors/index.js';
 
 function ChatSidebar() {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { t } = useTranslation();
+  const { socket } = useChatService();
 
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.chatReducer.data);
+  const data = useSelector(getChatData);
 
-  const { socket } = useChatService();
   const [modal, setModal] = React.useState({ type: '', channelId: null });
   const Modal = showModal(modal.type);
 
   React.useEffect(() => {
     socket.on('newChannel', (newChannel) => {
       dispatch(addChannel(newChannel));
-      history.push(`/chat#${newChannel?.id}`);
+      navigate(`/chat#${newChannel?.id}`);
     });
     socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel(id));
-      history.push('/chat#1');
+      navigate('/chat#1');
     });
     socket.on('renameChannel', (channel) => {
       dispatch(renameChannel(channel));
-      history.push(`/chat#${channel?.id}`);
+      navigate(`/chat#${channel?.id}`);
     });
-  }, [socket, dispatch, history]);
+  }, [socket, dispatch, navigate]);
 
   return (
     <>

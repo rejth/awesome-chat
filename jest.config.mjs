@@ -5,10 +5,10 @@
  */
 
 export default {
-  // All imported modules in your tests should be mocked automatically
+  // All imported modules in your test-utils should be mocked automatically
   // automock: false,
 
-  // Stop running tests after `n` failures
+  // Stop running test-utils after `n` failures
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
@@ -24,7 +24,8 @@ export default {
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  // https://jestjs.io/docs/configuration#collectcoveragefrom-array
+  coverageDirectory: '<rootDir>/coverage/',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -63,7 +64,7 @@ export default {
   // A set of global variables that need to be available in all test environments
   // globals: {},
 
-  // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
+  // The maximum amount of workers used to run your test-utils. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
   // maxWorkers: "50%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
@@ -82,7 +83,15 @@ export default {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  // Important: order matters, specific rules should be defined first
+  // https://jestjs.io/fr/docs/configuration#modulenamemapper-objectstring-string--arraystring
+  moduleNameMapper: {
+    // Handle static assets
+    // https://jestjs.io/docs/webpack#handling-static-assets
+    '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
+    '\\.svg$': '<rootDir>/__mocks__/svgrMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -96,7 +105,7 @@ export default {
   // A preset that is used as a base for Jest's configuration
   // preset: undefined,
 
-  // Run tests from one or more projects
+  // Run test-utils from one or more projects
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
@@ -114,7 +123,7 @@ export default {
   // Automatically restore mock state and implementation before every test
   // restoreMocks: false,
 
-  // The root directory that Jest should scan for tests and modules within
+  // The root directory that Jest should scan for test-utils and modules within
   // rootDir: undefined,
 
   // A list of paths to directories that Jest should use to search for files in
@@ -129,6 +138,7 @@ export default {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
+  // https://jestjs.io/docs/configuration#setupfilesafterenv-array
   setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
@@ -138,7 +148,8 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  // https://jestjs.io/docs/configuration#testenvironment-string
+  testEnvironment: "jsdom",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -152,7 +163,7 @@ export default {
   //   "**/?(*.)+(spec|test).[tj]s?(x)"
   // ],
 
-  // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
+  // An array of regexp pattern strings that are matched against all test paths, matched test-utils are skipped
   // testPathIgnorePatterns: [
   //   "\\\\node_modules\\\\"
   // ],
@@ -173,6 +184,7 @@ export default {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
+  // https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
   },
@@ -189,7 +201,7 @@ export default {
   // Indicates whether each individual test should be reported during the run
   // verbose: undefined,
 
-  // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
+  // An array of regexp patterns that are matched against all source file paths before re-running test-utils in watch mode
   // watchPathIgnorePatterns: [],
 
   // Whether to use watchman for file crawling

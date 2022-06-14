@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
 import AuthProvider from '../AuthProvider';
 import { ChatServiceContext } from '../../contexts';
-import store from '../../slices';
+import createStore from '../../store';
 
 import API_URL from '../../services/http/config.js';
 import BackendEndpoints from '../../api/index.js';
@@ -44,7 +44,7 @@ function AppProviders({ children }) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Toaster position="top-right" />
-      <StoreProvider store={store}>
+      <StoreProvider store={createStore()}>
         <ChatServiceContext.Provider value={serviceSettings}>
           <RollbarProvider config={rollbarConfig}>
             <ErrorBoundary fallbackUI={ErrorIndicator}>

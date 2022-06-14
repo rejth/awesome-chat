@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import useValidationSchema from '../hooks/useValidationSchema';
 import { useChatService } from '../../../hooks/useContext';
+import { getAllChannels } from '../../../store/selectors/index.js';
 
 function RenameModal({
   channelId,
@@ -15,7 +16,7 @@ function RenameModal({
 }) {
   const { t } = useTranslation();
   const { socket } = useChatService();
-  const channels = useSelector((state) => state.chatReducer.data.channels);
+  const channels = useSelector(getAllChannels);
   const schema = useValidationSchema(channels);
   const currentChannel = channels.find((c) => c.id === channelId);
 

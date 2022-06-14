@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { toast } from 'react-hot-toast';
@@ -12,7 +12,7 @@ function SignUpPage() {
   const { t } = useTranslation();
   const { api } = useChatService();
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,7 +27,7 @@ function SignUpPage() {
   const mutation = useMutation(api.signUpUser, {
     onSuccess: (data) => {
       auth.login(data);
-      history.push('/chat');
+      navigate('/chat');
       toast.success(t('signUpForm.notifications.success'), { duration: 10000, icon: '👌' });
     },
     onError: (error) => {

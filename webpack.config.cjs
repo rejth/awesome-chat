@@ -57,7 +57,7 @@ module.exports = () => {
           exclude: /node_modules/,
         },
 
-        // sass/sccs
+        // sass/scss
         {
           test: /\.s[ac]ss$/i,
           use: [
