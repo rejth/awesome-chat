@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/useContext';
 
@@ -10,8 +10,9 @@ function AccessControl({ children }) {
 
   return (
     auth.user ? children : (
-      <Redirect
+      <Navigate
         to="/login"
+        replace
         state={{ from: location }}
       />
     )

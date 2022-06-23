@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test chatReducer slice addChannel reducer 1`] = `
+Array [
+  Object {
+    "id": 1,
+  },
+]
+`;
+
+exports[`Test chatReducer slice addMessage reducer 1`] = `
+Object {
+  "channelId": 1,
+  "message": "hi",
+}
+`;
+
+exports[`Test chatReducer slice removeChannel reducer 1`] = `undefined`;
+
+exports[`Test chatReducer slice renameChannel reducer 1`] = `
+Object {
+  "id": 1,
+  "name": "new",
+}
+`;
+
+exports[`Test chatReducer slice setData reducer 1`] = `
+Object {
+  "data": Object {},
+}
+`;

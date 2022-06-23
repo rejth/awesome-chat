@@ -5,7 +5,7 @@ const rootReducer = combineReducers({
   chatReducer,
 });
 
-export default function createStore(initialState = { data: {} }) {
+export default function createStore(initialState = {}) {
   return configureStore({
     reducer: rootReducer,
     preloadedState: initialState,

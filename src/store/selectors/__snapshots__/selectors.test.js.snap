@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test selectors getAllChannels selector 1`] = `Array []`;
+
+exports[`Test selectors getChatData selector 1`] = `Object {}`;

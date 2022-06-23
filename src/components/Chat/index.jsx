@@ -5,12 +5,12 @@ import ErrorIndicator from '../ErrorIndicator';
 import Spinner from '../Spinner';
 import ChatBody from './components/Body';
 import ChatSidebar from './components/Sidebar';
-import useChatData from '../../hooks/useChatData';
+import { useFetchMessages } from '../../hooks/useFetchMessages';
 
 import './styles/index.scss';
 
 function Chat() {
-  const { data, isLoading, isError } = useChatData();
+  const { data, isLoading, isError } = useFetchMessages();
 
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorIndicator />;

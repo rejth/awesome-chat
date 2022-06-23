@@ -1,25 +1,26 @@
 import React from 'react';
-import './index.scss';
+import { Alert, Button } from 'react-bootstrap';
 
 function ErrorIndicator() {
-  return (
-    <div className="error-indicator">
-      <div className="loadingio-spinner-magnify-xvi2eomm9dk">
-        <div className="ldio-djr5te9pz2p">
-          <div>
-            <div>
-              <div />
-              <div />
-            </div>
-          </div>
-        </div>
-      </div>
-      <span className="error-message">
-        <div>Something has gone wrong!</div>
-        <div>Try again or contact the support</div>
-      </span>
-    </div>
-  );
+  const [show, setShow] = React.useState(true);
+
+  if (show) {
+    return (
+      <Alert
+        variant="danger"
+        dismissible
+        onClose={() => setShow(false)}
+      >
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          Change this and that and try again. Duis mollis, est non commodo
+          luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+          Cras mattis consectetur purus sit amet fermentum.
+        </p>
+      </Alert>
+    );
+  }
+  return <Button onClick={() => setShow(true)}>Show Alert</Button>;
 }
 
 export default ErrorIndicator;

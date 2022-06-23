@@ -19,7 +19,11 @@ function RemoveModal({
   };
 
   return (
-    <Modal show={isShow} onHide={handleClose}>
+    <Modal
+      data-testid="remove-channel-modal"
+      show={isShow}
+      onHide={handleClose}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.removeChannelModal.title')}</Modal.Title>
       </Modal.Header>

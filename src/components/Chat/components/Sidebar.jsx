@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Col,
   ListGroup,
-  SplitButton,
+  DropdownButton,
   Dropdown,
 } from 'react-bootstrap';
 
@@ -72,15 +72,16 @@ function ChatSidebar() {
             {data.channels.map(({ id, name, removable }) => (
               <ListGroup.Item
                 key={id}
-                data-testid="channel-elem-link"
+                data-testid="channel-link"
                 action
                 active={id === +location.hash.substring(1) || (!location.hash && id === 1)}
                 href={`#${id}`}
                 className="d-flex justify-content-between align-items-start"
               >
                 <div className="ms-2 me-auto">
-                  <SplitButton
+                  <DropdownButton
                     key={id}
+                    data-testid="channel-options-btn"
                     id={`dropdown-split-variants-${id}`}
                     variant="light"
                     size="xl"
@@ -93,6 +94,7 @@ function ChatSidebar() {
                     >
                       {t('chatSidebar.renameChannelButton')}
                     </Dropdown.Item>
+
                     {removable && (
                       <>
                         <Dropdown.Divider />
@@ -105,7 +107,7 @@ function ChatSidebar() {
                         </Dropdown.Item>
                       </>
                     )}
-                  </SplitButton>
+                  </DropdownButton>
                 </div>
               </ListGroup.Item>
             ))}

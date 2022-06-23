@@ -40,7 +40,11 @@ function RenameModal({
   };
 
   return (
-    <Modal show={isShow} onHide={handleClose}>
+    <Modal
+      data-testid="rename-channel-modal"
+      show={isShow}
+      onHide={handleClose}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.renameChannelModal.title')}</Modal.Title>
       </Modal.Header>
@@ -53,7 +57,7 @@ function RenameModal({
               autoFocus
               type="text"
               name="name"
-              placeholder={t('modals.renameChannelModal.erors.placeholder')}
+              placeholder={t('modals.renameChannelModal.errors.placeholder')}
               {...register('name', schema)}
             />
             <div>{errors.name?.message}</div>

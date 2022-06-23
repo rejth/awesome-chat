@@ -1,7 +1,5 @@
-import { describe, test } from '@jest/globals';
+import { describe } from '@jest/globals';
 
 describe('Test app', () => {
-  test('something', () => {
-    expect(null).toBeNull();
-  });
+  it.todo('something');
 });

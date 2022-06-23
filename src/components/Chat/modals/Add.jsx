@@ -30,7 +30,11 @@ function AddModal({ isShow, handleClose }) {
   };
 
   return (
-    <Modal show={isShow} onHide={handleClose}>
+    <Modal
+      data-testid="add-channel-modal"
+      show={isShow}
+      onHide={handleClose}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.addChannelModal.title')}</Modal.Title>
       </Modal.Header>

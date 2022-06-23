@@ -66,12 +66,13 @@ function ChatBody() {
                   <Alert.Heading>{t('chatBody.noMessages')}</Alert.Heading>
                 </Alert>
               )}
+
               {data.messages
                 .filter((item) => item.channelId === id)
                 .map(({ userId, message, id: mid }) => (
                   <div
                     key={mid}
-                    data-testid="message-elem"
+                    data-testid="message"
                     className="pb-2"
                   >
                     <strong>{`${userId}: `}</strong>
@@ -87,6 +88,7 @@ function ChatBody() {
         <Form.Group className="mb-3 mt-5">
           <Form.Control
             autoFocus
+            data-testid="message-input"
             type="text"
             name="message"
             placeholder={t('chatBody.sendMessageButton.placeholder')}
