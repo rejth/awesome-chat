@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /*
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
@@ -88,9 +87,9 @@ export default {
   moduleNameMapper: {
     // Handle static assets
     // https://jestjs.io/docs/webpack#handling-static-assets
-    '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
-    '\\.svg$': '<rootDir>/__mocks__/svgrMock.js',
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
+    '\\.(css|less|scss|sass)$': '<rootDir>/tests/mocks/styleMock.js',
+    '\\.svg$': '<rootDir>/tests/mocks/svgrMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/tests/mocks/fileMock.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

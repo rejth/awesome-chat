@@ -3,7 +3,12 @@ build
 coverage/
 dist/
 public/
+
 .jest/
+tests/pages/
+
+jest.config.mjs
+wdio.conf.cjs
 
 *.scss
 *.svg

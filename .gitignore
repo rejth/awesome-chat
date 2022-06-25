@@ -1,4 +1,8 @@
 node_modules
 dist
-.env
+build
 coverage
+
+.idea
+.vscode
+.env
