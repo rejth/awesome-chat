@@ -70,6 +70,7 @@ function Login() {
             <Form.Label>{t('loginForm.userName')}</Form.Label>
             <Form.Control
               required
+              data-testid="username"
               name="username"
               type="text"
               placeholder={t('loginForm.errors.userName.placeholder')}
@@ -89,6 +90,7 @@ function Login() {
             <Form.Label>{t('loginForm.password')}</Form.Label>
             <Form.Control
               required
+              data-testid="password"
               name="password"
               type="password"
               placeholder={t('loginForm.errors.password.placeholder')}

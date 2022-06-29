@@ -27,3 +27,5 @@ class LocalStorageMock {
 }
 
 global.localStorage = new LocalStorageMock();
+
+global.window = { location: { pathname: null } };

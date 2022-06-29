@@ -5,10 +5,13 @@ dist/
 public/
 
 .jest/
+cypress/
+tests/e2e/
 tests/pages/
 
 jest.config.mjs
 wdio.conf.cjs
+cypress.config.js
 
 *.scss
 *.svg
