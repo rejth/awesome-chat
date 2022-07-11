@@ -4,10 +4,7 @@ coverage/
 dist/
 public/
 
-.jest/
-cypress/
-tests/e2e/
-tests/pages/
+cypress/support/
 
 jest.config.mjs
 wdio.conf.cjs

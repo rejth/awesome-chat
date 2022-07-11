@@ -18,11 +18,11 @@ Cypress.Commands.add('login', (username, password) => {
       url: 'http://127.0.0.1:3000/api/v1/login',
       method: 'POST',
       body: {
-        "username": username,
-        "password": password
+        username,
+        password,
       },
     })
-    .then(response => {
+    .then((response) => {
       // assert response from server
       expect(response.status).to.eq(200);
       expect(response.body).to.have.property('token');
