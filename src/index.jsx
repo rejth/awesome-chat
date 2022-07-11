@@ -14,7 +14,7 @@ import '../assets/application.scss';
 import '../assets/index.scss';
 
 // Start the mocking and debugging conditionally
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   localStorage.debug = 'chat:*';
   const { worker } = require('./mocks/browser.js');
   worker.start();

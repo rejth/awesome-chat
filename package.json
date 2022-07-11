@@ -103,7 +103,7 @@
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
     "mini-css-extract-plugin": "^2.5.3",
-    "msw": "^0.42.3",
+    "msw": "latest",
     "nodemon": "^2.0.15",
     "npm-check-updates": "^12.4.0",
     "postcss-loader": "^6.2.1",
