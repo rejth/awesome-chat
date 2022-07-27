@@ -14,16 +14,14 @@
     "import", // @eslint-plugin-import
     "jsx-a11y", // @eslint-plugin-jsx-a11y
     "jest", // @eslint-plugin-jest
-    "jest-dom", // @eslint-plugin-jest-dom
-    "cypress" // @eslint-plugin-cypress
+    "jest-dom" // @eslint-plugin-jest-dom
   ], // Turn on the plugins and peer plugins
 
   "extends": [
     "airbnb", // Use the recommended rules from @eslint-config-airbnb
     "plugin:react/recommended", // Extends prevouos rules by recommended rules from @eslint-plugin-react
     "plugin:jest/recommended", // Extends prevouos rules by recommended rules from @eslint-plugin-jest
-    "plugin:jest-dom/recommended", // Extends prevouos rules by recommended rules from @eslint-plugin-jest-dom
-    "plugin:cypress/recommended" // Extends prevouos rules by recommended rules from @eslint-plugin-cypress
+    "plugin:jest-dom/recommended" // Extends prevouos rules by recommended rules from @eslint-plugin-jest-dom
   ],
 
   "parser": "@babel/eslint-parser", // Specifies the ESLint parser
