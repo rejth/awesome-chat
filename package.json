@@ -13,7 +13,9 @@
     "build": "webpack",
     "start": "fastify start server/plugin.js -l info -P -a 0.0.0.0",
     "start-backend": "fastify start server/plugin.js -l info -P",
-    "start-frontend": "npx webpack serve"
+    "start-frontend": "npx webpack serve",
+    "check-updates": "npx npm-check-updates",
+    "update-packages": "npx npm-check-updates -u"
   },
   "eslintConfig": {
     "extends": [
