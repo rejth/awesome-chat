@@ -24,8 +24,10 @@ const queryClient = new QueryClient({
   },
 });
 
+const token = `${process.env.ROLLBAR_ACCESS_TOKEN}`;
+
 const rollbarConfig = {
-  accessToken: `${process.env.ROLLBAR_ACCESS_TOKEN}`,
+  accessToken: token,
   captureUncaught: true,
   captureUnhandledRejections: true,
   environment: process.env.NODE_ENV,
