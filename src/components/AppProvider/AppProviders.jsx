@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import { ErrorBoundary } from '@rollbar/react';
 import { Provider as StoreProvider } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter } from 'react-router-dom';
@@ -24,20 +24,6 @@ const queryClient = new QueryClient({
   },
 });
 
-const token = `${process.env.ROLLBAR_ACCESS_TOKEN}`;
-
-const rollbarConfig = {
-  accessToken: token,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  environment: process.env.NODE_ENV,
-  code_version: '1.0.0',
-  server: {
-    root: API_URL,
-    branch: 'main',
-  },
-};
-
 const socket = io.connect(API_URL);
 
 function AppProviders({ children }) {
@@ -48,15 +34,13 @@ function AppProviders({ children }) {
       <Toaster position="top-right" />
       <StoreProvider store={createStore()}>
         <ChatServiceContext.Provider value={serviceSettings}>
-          <RollbarProvider config={rollbarConfig}>
-            <ErrorBoundary fallbackUI={ErrorIndicator}>
-              <AuthProvider>
-                <BrowserRouter>
-                  {children}
-                </BrowserRouter>
-              </AuthProvider>
-            </ErrorBoundary>
-          </RollbarProvider>
+          <ErrorBoundary fallbackUI={ErrorIndicator}>
+            <AuthProvider>
+              <BrowserRouter>
+                {children}
+              </BrowserRouter>
+            </AuthProvider>
+          </ErrorBoundary>
         </ChatServiceContext.Provider>
       </StoreProvider>
     </QueryClientProvider>
