@@ -1,1 +1,1 @@
-Demo: https://fathomless-savannah-47942.herokuapp.com/
+https://ilyakirsanov-react-chat-app.herokuapp.com/
