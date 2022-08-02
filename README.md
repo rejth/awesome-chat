@@ -8,7 +8,7 @@ This chat app is pretty simple. Users can send messages and chatting with each o
   * React + React Hooks
   * TypeScript
   * Redux Toolkit, React Query
-  * React-bootstrap
+  * React-Bootstrap
   * React-hook-form, Yup
   * Jest
   * Testing Library
