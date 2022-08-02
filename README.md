@@ -1,6 +1,6 @@
 # 💻 Chat app overview
 
-This chat app is pretty simple. Users can send message and chatting with each other, create new channels, edit or remove them.
+This chat app is pretty simple. Users can send messages and chatting with each other, create new channels, edit or remove them.
 
 [Demo](https://ilyakirsanov-react-chat-app.herokuapp.com/)
 
