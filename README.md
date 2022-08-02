@@ -18,6 +18,10 @@ This chat app is pretty simple. Users can send messages and chatting with each o
 
 ## Backend:
   * Fastify
+  
+## Deployment:
+  * Heroku
+
 
 ## Get Started
 
