@@ -6,7 +6,6 @@ This chat app is pretty simple. Users can send messages and chatting with each o
 
 ## Fronend:
   * React + React Hooks
-  * TypeScript
   * Redux Toolkit, React Query
   * React-Bootstrap
   * React-hook-form, Yup
