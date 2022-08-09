@@ -4,7 +4,7 @@ This chat app is pretty simple. Users can send messages and chatting with each o
 
 [Demo](https://ilyakirsanov-react-chat-app.herokuapp.com/)
 
-## 🛠 Fronend:
+## 🧱 Fronend:
   * React + React Hooks
   * Redux Toolkit, React Query
   * React-Bootstrap
@@ -16,11 +16,11 @@ This chat app is pretty simple. Users can send messages and chatting with each o
 ## 🛠 Backend:
   * Fastify
   
-## 🛠 Test:
+## 🧪 Test:
   * Jest
   * Testing Library
   
-## 🛠 Deployment:
+## 🌐 Deployment:
   * Heroku
 
 ## Get Started
